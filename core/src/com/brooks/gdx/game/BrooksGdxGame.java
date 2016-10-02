@@ -16,10 +16,12 @@ import com.brooks.gdx.game.Assets;
  */
 public class BrooksGdxGame extends ApplicationAdapter
 {
+	//Initialize variables
 	private static final String TAG = BrooksGdxGame.class.getName();
 	private WorldController worldController;
 	private WorldRenderer worldRenderer;
-
+	
+	//Create function
 	@Override
 	public void create ()
 	{
@@ -31,7 +33,8 @@ public class BrooksGdxGame extends ApplicationAdapter
 		worldController = new WorldController();
 		worldRenderer = new WorldRenderer(worldController);
 	}
-
+	
+	//Render function
 	@Override
 	public void render ()
 	{
@@ -44,13 +47,15 @@ public class BrooksGdxGame extends ApplicationAdapter
 		//Render game world to screen
 		worldRenderer.render();
 	}
-
+	
+	//Resize function
 	@Override
 	public void resize (int width, int height)
 	{
 		worldRenderer.resize(width, height);
 	}
-
+	
+	//Dispose function
 	@Override
 	public void dispose ()
 	{
