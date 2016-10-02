@@ -116,7 +116,7 @@ public class WorldController extends InputAdapter
 		cameraHelper.setPosition(x, y);
 	}
 	
-	Reset the game world
+	//Reset the game world
 	@Override
 	public boolean keyUp (int keycode)
 	{
