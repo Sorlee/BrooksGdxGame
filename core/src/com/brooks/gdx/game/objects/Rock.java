@@ -1,0 +1,73 @@
+package com.brooks.gdx.game.objects;
+ 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.brooks.gdx.game.Assets;
+ 
+/**
+ * Created by: Becky Brooks
+ */
+public class Rock extends AbstractGameObject
+{
+ 	//Declare variables
+ 	private TextureRegion regLeftEdge;
+ 	private TextureRegion regRightEdge;
+ 	private TextureRegion regMiddle;
+ 	private int length;
+ 	
+ 	//Rock
+ 	public Rock()
+ 	{
+ 		init();
+ 	}
+ 	
+ 	//Init function
+ 	private void init()
+ 	{
+ 		dimension.set(0.75f, 1f);
+ 		regLeftEdge = Assets.instance.rock.leftEdge;
+ 		regRightEdge = Assets.instance.rock.rightEdge;
+ 		regMiddle = Assets.instance.rock.middle;
+ 		//Start length of this rock
+ 		setLength(1);
+ 	}
+ 	
+ 	//SetLength function
+ 	public void setLength(int length)
+ 	{
+ 		this.length = length;
+ 	}
+ 	
+ 	//IncreaseLength function
+ 	public void increaseLength(int amount)
+ 	{
+ 		setLength(length + amount);
+ 	}
+ 	
+ 	//Render function
+ 	@Override
+ 	public void render (SpriteBatch batch)
+ 	{
+ 		TextureRegion reg = null;
+ 		float relX = 0;
+ 		float relY = 0;
+ 
+ 		//Draw left edge
+ 		reg = regLeftEdge;
+ 		relX -= dimension.x / 4;
+ 		batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y, dimension.x / 4, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+ 
+ 		//Draw middle
+ 		relX = 0;
+ 		reg = regMiddle;
+ 		for (int i = 0; i < length; i++)
+ 		{
+ 			batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+ 			relX += dimension.x;
+ 		}
+ 
+ 		//Draw right edge
+ 		reg = regRightEdge;
+ 		batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y, dimension.x / 4, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+ 	}
+}
