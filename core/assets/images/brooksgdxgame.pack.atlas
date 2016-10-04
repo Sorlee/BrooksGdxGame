@@ -1,0 +1,153 @@
+
+brooksgdxgame.pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+City
+  rotate: false
+  xy: 2, 431
+  size: 1008, 379
+  orig: 1008, 379
+  offset: 0, 0
+  index: -1
+Enemy1-1
+  rotate: false
+  xy: 583, 382
+  size: 38, 47
+  orig: 38, 47
+  offset: 0, 0
+  index: -1
+Enemy1-2
+  rotate: false
+  xy: 623, 382
+  size: 38, 47
+  orig: 38, 47
+  offset: 0, 0
+  index: -1
+Enemy1-3
+  rotate: false
+  xy: 663, 382
+  size: 38, 47
+  orig: 38, 47
+  offset: 0, 0
+  index: -1
+Enemy1-4
+  rotate: false
+  xy: 703, 382
+  size: 38, 47
+  orig: 38, 47
+  offset: 0, 0
+  index: -1
+Enemy1-5
+  rotate: false
+  xy: 743, 382
+  size: 38, 47
+  orig: 38, 47
+  offset: 0, 0
+  index: -1
+Enemy2-1
+  rotate: false
+  xy: 448, 385
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+Enemy2-2
+  rotate: false
+  xy: 102, 208
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+Enemy2-3
+  rotate: false
+  xy: 43, 142
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+Enemy2-4
+  rotate: false
+  xy: 493, 385
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+Enemy2-5
+  rotate: false
+  xy: 538, 385
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+GooOverlay
+  rotate: false
+  xy: 2, 92
+  size: 32, 160
+  orig: 32, 160
+  offset: 0, 0
+  index: -1
+Knight
+  rotate: false
+  xy: 783, 380
+  size: 22, 49
+  orig: 22, 49
+  offset: 0, 0
+  index: -1
+LeftEdge
+  rotate: false
+  xy: 1012, 722
+  size: 5, 88
+  orig: 5, 88
+  offset: 0, 0
+  index: -1
+Middle
+  rotate: false
+  xy: 2, 2
+  size: 16, 88
+  orig: 16, 88
+  offset: 0, 0
+  index: -1
+Orange
+  rotate: false
+  xy: 382, 365
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Potion
+  rotate: false
+  xy: 36, 188
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+RightEdge
+  rotate: false
+  xy: 36, 98
+  size: 5, 88
+  orig: 5, 88
+  offset: 0, 0
+  index: -1
+cloud01
+  rotate: false
+  xy: 202, 351
+  size: 178, 78
+  orig: 178, 78
+  offset: 0, 0
+  index: -1
+cloud02
+  rotate: false
+  xy: 2, 341
+  size: 198, 88
+  orig: 198, 88
+  offset: 0, 0
+  index: -1
+cloud03
+  rotate: false
+  xy: 2, 254
+  size: 182, 85
+  orig: 182, 85
+  offset: 0, 0
+  index: -1

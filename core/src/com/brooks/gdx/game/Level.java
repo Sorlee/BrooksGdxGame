@@ -9,6 +9,10 @@ import com.brooks.gdx.game.objects.Clouds;
 import com.brooks.gdx.game.objects.City;
 import com.brooks.gdx.game.objects.Rock;
 import com.brooks.gdx.game.objects.GooOverlay;
+import com.brooks.gdx.game.objects.Knight;
+import com.brooks.gdx.game.objects.Potion;
+import com.brooks.gdx.game.objects.Orange;
+import com.brooks.gdx.game.objects.Enemy;
 
 /**
  * Created by: Becky Brooks
@@ -17,6 +21,12 @@ public class Level
 {
 	//Declare variables
  	public static final String TAG = Level.class.getName();
+ 	public Knight knight;
+ 	//Objects
+ 	public Array<Orange> oranges;
+ 	public Array<Potion> potions;
+ 	public Array<Enemy> enemies;
+ 	public Array<Rock> rocks;
  	
  	//State the color pixel that represents each asset
  	public enum BLOCK_TYPE
@@ -46,9 +56,6 @@ public class Level
  		}
  	}
  
- 	//Objects
- 	public Array<Rock> rocks;
- 
  	//Decoration
  	public Clouds clouds;
  	public City city;
@@ -59,10 +66,16 @@ public class Level
  		init(filename);
  	}
  
+ 	//Init function
  	private void init (String filename)
  	{
+ 		//Player character
+ 		knight = null;
  		//Objects
  		rocks = new Array<Rock>();
+ 		oranges = new Array<Orange>();
+ 		potions = new Array<Potion>();
+ 		enemies = new Array<Enemy>();
  
  		//Load image file that represents the level data
  		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -104,18 +117,34 @@ public class Level
  				//Player spawn point
  				else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel))
  				{
+ 					obj = new Knight();
+ 					offsetHeight = 8.0f;
+ 					obj.position.set(pixelX, baseHeight * obj.dimension.y - offsetHeight);
+ 					knight = (Knight) obj;
  				}
  				//Potion
  				else if (BLOCK_TYPE.ITEM_POTION.sameColor(currentPixel))
  				{
+ 					obj = new Potion();
+ 					offsetHeight = -1.5f;
+ 					obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+ 					potions.add((Potion)obj);
  				}
  				//Orange
  				else if (BLOCK_TYPE.ITEM_ORANGE.sameColor(currentPixel))
  				{
+ 					obj = new Orange();
+ 					offsetHeight = -1.5f;
+ 					obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+ 					oranges.add((Orange)obj);
  				}
- 				//Enemy
+ 				//Enemies
  				else if (BLOCK_TYPE.ENEMY.sameColor(currentPixel))
  				{
+ 					obj = new Enemy();
+ 					offsetHeight = -3.0f;
+ 					obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+ 					enemies.add((Enemy)obj);
  				}
  				//Unknown object / pixel color
  				else
@@ -143,6 +172,7 @@ public class Level
  		Gdx.app.debug(TAG, "level '" + filename + "' loaded");
  	}
  
+ 	//Render function
  	public void render (SpriteBatch batch)
  	{
  		//Draw mountains
@@ -150,9 +180,35 @@ public class Level
  		//Draw rocks
  		for (Rock rock : rocks)
  			rock.render(batch);
+ 		//Draw Gold Coins
+ 		for (Orange orange : oranges)
+ 			orange.render(batch);
+ 		//Draw Feathers
+ 		for (Potion potion : potions)
+ 			potion.render(batch);
+ 		//Draw Enemies
+ 		for (Enemy enemy : enemies)
+ 			enemy.render(batch);
+ 		//Draw Player Character
+ 		knight.render(batch);
  		//Draw waterOverlay
  		gooOverlay.render(batch);
  		//Draw Clouds
  		clouds.render(batch);
+ 	}
+ 	
+ 	//Update function
+ 	public void update (float deltaTime)
+ 	{
+ 		knight.update(deltaTime);
+ 		for (Rock rock : rocks)
+ 			rock.update(deltaTime);
+ 		for (Orange orange : oranges)
+ 			orange.update(deltaTime);
+ 		for (Potion potion : potions)
+ 			potion.update(deltaTime);
+ 		for (Enemy enemy : enemies)
+ 			enemy.update(deltaTime);
+ 		clouds.update(deltaTime);
  	}
  }

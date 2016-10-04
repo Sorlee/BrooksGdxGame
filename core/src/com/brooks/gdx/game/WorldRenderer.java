@@ -3,6 +3,7 @@ package com.brooks.gdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.brooks.gdx.game.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -131,10 +132,48 @@ public class WorldRenderer implements Disposable
 		batch.begin();
 		//Draw collected gold coins icon + text (anchored to top left edge)
 		renderGuiScore(batch);
+		//Draw collected feather icon (anchored to top left edge)
+		renderGuiPotionPowerup(batch);
 		//Draw extra lives icon + text (anchored to top right edge)
 		renderGuiExtraLive(batch);
 		//Draw FPS text (anchored to bottom right edge)
 		renderGuiFpsCounter(batch);
+		//Draw game over text
+		renderGuiGameOverMessage(batch);
 		batch.end();
+	}
+	
+	//RenderGuiGameOverMessage function
+	private void renderGuiGameOverMessage (SpriteBatch batch)
+	{
+		float x = cameraGUI.viewportWidth / 2;
+		float y = cameraGUI.viewportHeight / 2;
+		if (worldController.isGameOver())
+		{
+			BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
+			fontGameOver.setColor(1, 0.75f, 0.25f, 1);
+			fontGameOver.draw(batch, "GAME OVER", x, y, 0, Align.center, true);
+			fontGameOver.setColor(1, 1, 1, 1);
+		}
+	}
+	
+	//RenderGuiPotionPowerup function
+	private void renderGuiPotionPowerup(SpriteBatch batch)
+	{
+		float x = -15;
+		float y = 30;
+		float timeLeftPotionPowerup = worldController.level.knight.timeLeftPotionPowerup;
+		if (timeLeftPotionPowerup > 0)
+		{
+			//Start icon fade in/out if the left power-up time is less than 4 seconds. The fade interval is set to 5 changes per second
+			if (timeLeftPotionPowerup < 4)
+			{
+				if (((int)(timeLeftPotionPowerup * 5) % 2) != 0)
+					batch.setColor(1, 1, 1, 0.5f);
+			}
+			batch.draw(Assets.instance.potion.potion, x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
+			batch.setColor(1, 1, 1, 1);
+			Assets.instance.fonts.defaultSmall.draw(batch,  "" + (int)timeLeftPotionPowerup, x + 60, y + 57);
+		}
 	}
 }
