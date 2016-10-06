@@ -20,6 +20,8 @@ import com.brooks.gdx.game.objects.BunnyHead.JUMP_STATE;
 import com.brooks.gdx.game.objects.Feather;
 import com.brooks.gdx.game.objects.GoldCoin;
 import com.brooks.gdx.game.objects.Rock;
+import com.badlogic.gdx.Game;
+import com.brooks.gdx.game.screens.MenuScreen;
 
 /**
  * Created by: Becky Brooks
@@ -35,6 +37,7 @@ public class WorldController extends InputAdapter
 	private Rectangle r1 = new Rectangle();
 	private Rectangle r2 = new Rectangle();
 	private float timeLeftGameOverDelay;
+	private Game game;
 	
 	//Bunny <-> Rock collisions
 	private void onCollisionBunnyHeadWithRock(Rock rock)
@@ -92,8 +95,9 @@ public class WorldController extends InputAdapter
 	}
 
 	//Initializes the WorldController
-	public WorldController ()
+	public WorldController (Game game)
 	{
+		this.game = game;
 		init();
 	}
 	
@@ -132,7 +136,7 @@ public class WorldController extends InputAdapter
 		{
 			timeLeftGameOverDelay -= deltaTime;
 			if (timeLeftGameOverDelay < 0)
-				init();
+				backToMenu();
 			else
 				handleInputGame(deltaTime);
 		}
@@ -212,6 +216,9 @@ public class WorldController extends InputAdapter
 			cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.bunnyHead);
 			Gdx.app.log(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
 		}
+		//Back to menu
+		else if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
+			backToMenu();
 		return false;
 	}
 	
@@ -287,5 +294,12 @@ public class WorldController extends InputAdapter
 	public boolean isPlayerInWater()
 	{
 		return level.bunnyHead.position.y < -5;
+	}
+	
+	//BackToMenu function
+	private void backToMenu ()
+	{
+		//Switch to menu screen
+		game.setScreen(new MenuScreen(game));
 	}
 }

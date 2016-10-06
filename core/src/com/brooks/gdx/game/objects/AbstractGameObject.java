@@ -5,6 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
+/**
+ * Created by: Becky Brooks
+ */
 public abstract class AbstractGameObject
 {
 	//Declare variables

@@ -6,6 +6,9 @@ import com.brooks.gdx.game.BrooksGdxGame;
 import com.badlogic.gdx.tools.texturepacker.*;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 
+/**
+ * Created by: Becky Brooks
+ */
 public class DesktopLauncher
 {
 	private static boolean rebuildAtlas = false;
@@ -18,9 +21,9 @@ public class DesktopLauncher
 			Settings settings = new Settings();
 			settings.maxWidth = 1024;
 			settings.maxHeight = 1024;
-			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
 			TexturePacker.process(settings, "../core/assets-raw/images", "../core/assets/images", "brooksgdxgame.pack");
+			TexturePacker.process(settings, "../core/assets-raw/images-ui", "../core/assets/images", "brooksgdxgame-ui.pack");
 		}
 
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();

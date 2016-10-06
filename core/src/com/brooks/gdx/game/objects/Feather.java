@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.brooks.gdx.game.Assets;
 
+/**
+ * Created by: Becky Brooks
+ */
 public class Feather extends AbstractGameObject
 {
 	//Declare variables
