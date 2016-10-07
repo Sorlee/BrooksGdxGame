@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.brooks.gdx.game.Assets;
 
+/**
+ * Created by: Becky Brooks
+ */
 public class Potion extends AbstractGameObject
 {
 	//Declare variables

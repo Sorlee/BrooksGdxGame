@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.brooks.gdx.game.Assets;
 import com.brooks.gdx.game.util.Constants;
+import com.brooks.gdx.game.util.CharacterSkin;
+import com.brooks.gdx.game.util.GamePreferences;
 
 /**
  * Created by: Becky Brooks
@@ -178,6 +180,10 @@ public class Knight extends AbstractGameObject
  	public void render (SpriteBatch batch)
  	{
  		TextureRegion reg = null;
+ 		
+ 		//Apply Skin Color
+ 		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
+ 		
  		//Set special color when game object has a potion powerup
  		if (hasPotionPowerup)
  		{
