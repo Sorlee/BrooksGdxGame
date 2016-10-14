@@ -29,12 +29,17 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetLevelDecoration levelDecoration;
 	public AssetFonts fonts;
 	
-	//singleton: prevent instantiation from other classes
+	/**
+	 * Assets method
+	 * singleton: prevent instantiation from other classes 
+	 */
 	private Assets()
 	{
 	}
 	
-	//Class for AssetFonts
+	/**
+	 * Class for AssetFonts
+	 */
 	public class AssetFonts
 	{
 		//Declare variables
@@ -59,7 +64,10 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Init function
+	/**
+	 * Init method
+	 * @param assetManager
+	 */
 	public void init (AssetManager assetManager)
 	{
 		this.assetManager = assetManager;
@@ -89,7 +97,9 @@ public class Assets implements Disposable, AssetErrorListener
 		levelDecoration = new AssetLevelDecoration(atlas);
 	}
 	
-	//Dispose function
+	/**
+	 * Dispose method
+	 */
 	@Override
 	public void dispose()
 	{
@@ -100,20 +110,29 @@ public class Assets implements Disposable, AssetErrorListener
 		fonts.defaultBig.dispose();
 	}
 	
-	//Error handler when an asset can't be loaded
+	/**
+	 * Error handler when an asset can't be loaded
+	 * @param filename
+	 * @param type
+	 * @param throwable
+	 */
 	public void error(String filename, Class type, Throwable throwable)
 	{
 		Gdx.app.error(TAG, "Couldn't load asset '" + filename + "'", (Exception)throwable);
 	}
 	
-	//Error handler when an asset can't be loaded
+	/**
+	 * Error handler when an asset can't be loaded
+	 */
 	@Override
 	public void error(AssetDescriptor asset, Throwable throwable)
 	{
 		Gdx.app.error(TAG, "Couldn't load asset '" + asset.fileName + "'", (Exception)throwable);
 	}
 	
-	//Class for the knight
+	/**
+	 * Class for the knight
+	 */
 	public class AssetKnight
 	{
 		public final AtlasRegion knight;
@@ -124,7 +143,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the rock (left, middle, and right)
+	/**
+	 * Class for the rock (left, middle, and right)
+	 */
 	public class AssetRock
 	{
 		public final AtlasRegion leftEdge;
@@ -139,7 +160,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the orange
+	/**
+	 * Class for the orange
+	 */
 	public class AssetOrange
 	{
 		public final AtlasRegion orange;
@@ -150,7 +173,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the potion
+	/**
+	 * Class for the potion
+	 */
 	public class AssetPotion
 	{
 		public final AtlasRegion potion;
@@ -161,7 +186,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the enemy
+	/**
+	 * Class for the enemy
+	 */
 	public class AssetEnemy
 	{
 		public final AtlasRegion enemy;
@@ -172,7 +199,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the clouds, the city, and the goo overlay
+	/**
+	 * Class for the clouds, the city, and the goo overlay
+	 */
 	public class AssetLevelDecoration
 	{
 		public final AtlasRegion cloud01;

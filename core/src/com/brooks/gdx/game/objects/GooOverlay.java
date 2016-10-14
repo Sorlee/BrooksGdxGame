@@ -13,14 +13,19 @@ public class GooOverlay extends AbstractGameObject
  	private TextureRegion regGooOverlay;
  	private float length;
  	
- 	//WaterOverlay
+ 	/**
+ 	 * GooOverlay method
+ 	 * @param length
+ 	 */
  	public GooOverlay (float length)
  	{
  		this.length = length;
  		init();
  	}
  	
- 	//Init function
+ 	/**
+ 	 * Initialize method
+ 	 */
  	private void init()
  	{
  		dimension.set(length * 10, 3);
@@ -28,7 +33,9 @@ public class GooOverlay extends AbstractGameObject
  		origin.x = -dimension.x / 2;
  	}
  	
- 	//Render function
+ 	/**
+ 	 * Render method
+ 	 */
  	@Override
  	public void render (SpriteBatch batch)
  	{

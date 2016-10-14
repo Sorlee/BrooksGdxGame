@@ -60,12 +60,18 @@ public class MenuScreen extends AbstractGameScreen
 	private boolean debugEnabled = false;
 	private float debugRebuildStage;
 	
+	/**
+	 * MenuScreen method
+	 * @param game
+	 */
 	public MenuScreen (Game game)
 	{
 		super(game);
 	}
 	
-	//Render function
+	/**
+	 * Render method
+	 */
 	@Override
 	public void render (float deltaTime)
 	{
@@ -85,14 +91,18 @@ public class MenuScreen extends AbstractGameScreen
 		stage.setDebugAll(true);
 	}
 	
-	//Resize function
+	/**
+	 * Resize method
+	 */
 	@Override
 	public void resize (int width, int height)
 	{
 		stage.getViewport().update(width, height, true);
 	}
 	
-	//Show function
+	/**
+	 * Show method
+	 */
 	@Override
 	public void show ()
 	{
@@ -101,7 +111,9 @@ public class MenuScreen extends AbstractGameScreen
 		rebuildStage();
 	}
 	
-	//Hide function
+	/**
+	 * Hide method
+	 */
 	@Override
 	public void hide ()
 	{
@@ -110,13 +122,17 @@ public class MenuScreen extends AbstractGameScreen
 		skinLibgdx.dispose();
 	}
 	
-	//Pause function
+	/**
+	 * Pause method
+	 */
 	@Override
 	public void pause ()
 	{
 	}
 	
-	//RebuildStage function
+	/**
+	 * RebuildStage method
+	 */
 	private void rebuildStage ()
 	{
 		skinCanyonBunny = new Skin(Gdx.files.internal(Constants.SKIN_CANYONBUNNY_UI), new TextureAtlas(Constants.TEXTURE_ATLAS_UI));
@@ -141,7 +157,10 @@ public class MenuScreen extends AbstractGameScreen
 		stack.addActor(layerOptionsWindow);
 	}
 	
-	//BuildBackgroundLayer function
+	/**
+	 * BuildBackgroundLayer method
+	 * @return
+	 */
 	private Table buildBackgroundLayer ()
 	{
 		Table layer = new Table();
@@ -151,7 +170,10 @@ public class MenuScreen extends AbstractGameScreen
 		return layer;
 	}
 	
-	//BuildObjectsLayer function
+	/**
+	 * BuildObjectsLayer method
+	 * @return
+	 */
 	private Table buildObjectsLayer ()
 	{
 		Table layer = new Table();
@@ -166,7 +188,10 @@ public class MenuScreen extends AbstractGameScreen
 		return layer;
 	}
 	
-	//BuildLogosLayer function
+	/**
+	 * BuildLogosLayer method
+	 * @return
+	 */
 	private Table buildLogosLayer ()
 	{
 		Table layer = new Table();
@@ -183,7 +208,10 @@ public class MenuScreen extends AbstractGameScreen
 		return layer;
 	}
 	
-	//BuildControlsLayer function
+	/**
+	 * BuildControlsLayer method
+	 * @return
+	 */
 	private Table buildControlsLayer ()
 	{
 		Table layer = new Table();
@@ -216,7 +244,10 @@ public class MenuScreen extends AbstractGameScreen
 		return layer;
 	}
 	
-	//BuildOptionsWindowLayer function
+	/**
+	 * BuildOptionsWindowLayer method
+	 * @return
+	 */
 	private Table buildOptionsWindowLayer ()
 	{
 		winOptions = new Window("Options", skinLibgdx);
@@ -242,13 +273,17 @@ public class MenuScreen extends AbstractGameScreen
 		return winOptions;
 	}
 	
-	//OnPlayClicked function
+	/**
+	 * OnPlayClicked method
+	 */
 	private void onPlayClicked ()
 	{
 		game.setScreen(new GameScreen(game));
 	}
 	
-	//OnOptionsClicked function
+	/**
+	 * OnOptionsClicked method
+	 */
 	private void onOptionsClicked ()
 	{
 		loadSettings();
@@ -257,7 +292,9 @@ public class MenuScreen extends AbstractGameScreen
 		winOptions.setVisible(true);
 	}
 	
-	//LoadSettings function
+	/**
+	 * LoadSettings method
+	 */
 	private void loadSettings()
 	{
 		GamePreferences prefs = GamePreferences.instance;
@@ -271,7 +308,9 @@ public class MenuScreen extends AbstractGameScreen
 		chkShowFpsCounter.setChecked(prefs.showFpsCounter);
 	}
 	
-	//SaveSettings function
+	/**
+	 * SaveSettings method
+	 */
 	private void saveSettings()
 	{
 		GamePreferences prefs = GamePreferences.instance;
@@ -284,21 +323,28 @@ public class MenuScreen extends AbstractGameScreen
 		prefs.save();
 	}
 	
-	//OnCharSkinSelected function
+	/**
+	 * OnCharSkinSelected method
+	 * @param index
+	 */
 	private void onCharSkinSelected(int index)
 	{
 		CharacterSkin skin = CharacterSkin.values()[index];
 		imgCharSkin.setColor(skin.getColor());
 	}
 	
-	//OnSaveClicked function
+	/**
+	 * OnSaveClicked method
+	 */
 	private void onSaveClicked()
 	{
 		saveSettings();
 		onCancelClicked();
 	}
 	
-	//OnCancelClicked function
+	/**
+	 * OnCancelClicked method
+	 */
 	private void onCancelClicked()
 	{
 		btnMenuPlay.setVisible(true);
@@ -306,7 +352,10 @@ public class MenuScreen extends AbstractGameScreen
 		winOptions.setVisible(false);
 	}
 	
-	//BuildOptWinAudioSettings function
+	/**
+	 * BuildOptWinAudioSettings method
+	 * @return
+	 */
 	private Table buildOptWinAudioSettings()
 	{
 		Table tbl = new Table();
@@ -333,7 +382,10 @@ public class MenuScreen extends AbstractGameScreen
 		return tbl;
 	}
 	
-	//BuildOptWinSkinSelection function
+	/**
+	 * BuildOptWinSkinSelection method
+	 * @return
+	 */
 	private Table buildOptWinSkinSelection ()
 	{
 		Table tbl = new Table();
@@ -359,7 +411,10 @@ public class MenuScreen extends AbstractGameScreen
 		return tbl;
 	}
 	
-	//BuildOptWinDebug function
+	/**
+	 * BuildOptWinDebug method
+	 * @return
+	 */
 	private Table buildOptWinDebug ()
 	{
 		Table tbl = new Table();
@@ -377,7 +432,10 @@ public class MenuScreen extends AbstractGameScreen
 		return tbl;
 	}
 	
-	//BuildOptWinButtons function
+	/**
+	 * BuildOptWinButtons method
+	 * @return
+	 */
 	private Table buildOptWinButtons ()
 	{
 		Table tbl = new Table();

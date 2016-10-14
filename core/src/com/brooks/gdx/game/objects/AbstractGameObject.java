@@ -22,7 +22,9 @@ public abstract class AbstractGameObject
 	public Vector2 acceleration;
 	public Rectangle bounds;
 	
-	//AbstractGameObject
+	/**
+	 * AbstractGameObject method
+	 */
 	public AbstractGameObject ()
 	{
 		position = new Vector2();
@@ -37,7 +39,10 @@ public abstract class AbstractGameObject
 		bounds = new Rectangle();
 	}
 	
-	//Update function
+	/**
+	 * Update method
+	 * @param deltaTime
+	 */
 	public void update (float deltaTime)
 	{
 		updateMotionX(deltaTime);
@@ -47,10 +52,16 @@ public abstract class AbstractGameObject
 		position.y += velocity.y * deltaTime;
 	}
 	
-	//Render
+	/**
+	 * Render
+	 * @param batch
+	 */
 	public abstract void render (SpriteBatch batch);
 	
-	//Update the motion of the object in the x direction
+	/**
+	 * Update the motion of the object in the x direction
+	 * @param deltaTime
+	 */
 	protected void updateMotionX (float deltaTime)
 	{
 		if (velocity.x != 0)
@@ -71,7 +82,10 @@ public abstract class AbstractGameObject
 		velocity.x = MathUtils.clamp(velocity.x, -terminalVelocity.x, terminalVelocity.x);
 	}
 	
-	//Update the motion of the object in the y direction
+	/**
+	 * Update the motion of the object in the y direction
+	 * @param deltaTime
+	 */
 	protected void updateMotionY (float deltaTime)
 	{
 		if (velocity.y != 0)

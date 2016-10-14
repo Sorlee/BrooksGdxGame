@@ -1,12 +1,13 @@
 package com.brooks.gdx.game.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.brooks.gdx.game.Assets;
 import com.brooks.gdx.game.util.Constants;
 import com.brooks.gdx.game.util.CharacterSkin;
 import com.brooks.gdx.game.util.GamePreferences;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
 /**
  * Created by: Becky Brooks
@@ -18,6 +19,7 @@ public class Knight extends AbstractGameObject
 	private final float JUMP_TIME_MAX = 1.0f;
 	private final float JUMP_TIME_MIN = 0.1f;
 	private final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
+	public ParticleEffect dustParticles = new ParticleEffect();
 	
 	public enum VIEW_DIRECTION
 	{
@@ -40,12 +42,17 @@ public class Knight extends AbstractGameObject
  	public boolean hasPotionPowerup;
  	public float timeLeftPotionPowerup;
  	
+ 	/**
+ 	 * Knight method
+ 	 */
  	public Knight()
  	{
  		init();
  	}
  	
- 	//Init function
+ 	/**
+ 	 * Initialize method
+ 	 */
  	public void init()
  	{
  		dimension.set(0.75f, 1.25f);
@@ -66,9 +73,14 @@ public class Knight extends AbstractGameObject
  		//Powerups
  		hasPotionPowerup = false;
  		timeLeftPotionPowerup = 0;
+ 		//Particles
+ 		dustParticles.load(Gdx.files.internal("particles/dust"), Gdx.files.internal("particles"));
  	}
  	
- 	//SetJumping function
+ 	/**
+ 	 * SetJumping method
+ 	 * @param jumpKeyPressed
+ 	 */
  	public void setJumping(boolean jumpKeyPressed)
  	{
  		switch(jumpState)
@@ -98,7 +110,10 @@ public class Knight extends AbstractGameObject
  		}
  	}
  	
- 	//SetPotionPowerup function
+ 	/**
+ 	 * SetPotionPowerup method
+ 	 * @param pickedUp
+ 	 */
  	public void setPotionPowerup(boolean pickedUp)
  	{
  		hasPotionPowerup = pickedUp;
@@ -111,13 +126,18 @@ public class Knight extends AbstractGameObject
  			terminalVelocity.set(3.0f, 4.0f);
  	}
  	
- 	//HasPotionPowerup function
+ 	/**
+ 	 * HasPotionPowerup method
+ 	 * @return
+ 	 */
  	public boolean hasPotionPowerup()
  	{
  		return hasPotionPowerup && timeLeftPotionPowerup > 0;
  	}
  	
- 	//Update function
+ 	/**
+ 	 * Update method
+ 	 */
  	@Override
  	public void update (float deltaTime)
  	{
@@ -136,9 +156,12 @@ public class Knight extends AbstractGameObject
  				setPotionPowerup(false);
  			}
  		}
+ 		dustParticles.update(deltaTime);
  	}
  	
- 	//UpdateMotionY function
+ 	/**
+ 	 * UpdateMotionY method
+ 	 */
  	@Override
  	protected void updateMotionY (float deltaTime)
  	{
@@ -146,6 +169,11 @@ public class Knight extends AbstractGameObject
  		{
  			case GROUNDED:
  				jumpState = JUMP_STATE.FALLING;
+ 				if (velocity.x != 0)
+ 				{
+ 					dustParticles.setPosition(position.x + dimension.x / 2, position.y);
+ 					dustParticles.start();
+ 				}
  				break;
  			case JUMP_RISING:
  				//Keep track of jump time
@@ -171,15 +199,21 @@ public class Knight extends AbstractGameObject
  		}
  		if (jumpState != JUMP_STATE.GROUNDED)
  		{
+ 			dustParticles.allowCompletion();
  			super.updateMotionY(deltaTime);
  		}
  	}
  	
- 	//Render function
+ 	/**
+ 	 * Render method
+ 	 */
  	@Override
  	public void render (SpriteBatch batch)
  	{
  		TextureRegion reg = null;
+ 		
+ 		//Draw Particles
+ 		dustParticles.draw(batch);
  		
  		//Apply Skin Color
  		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());

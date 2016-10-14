@@ -18,12 +18,18 @@ public class GameScreen extends AbstractGameScreen
 	private WorldRenderer worldRenderer;
 	private boolean paused;
 	
+	/**
+	 * GameScreen method
+	 * @param game
+	 */
 	public GameScreen (Game game)
 	{
 		super(game);
 	}
 	
-	//Render function
+	/**
+	 * Render method
+	 */
 	@Override
 	public void render (float deltaTime)
 	{
@@ -41,14 +47,18 @@ public class GameScreen extends AbstractGameScreen
 		worldRenderer.render();
 	}
 	
-	//Resize function
+	/**
+	 * Resize method
+	 */
 	@Override
 	public void resize (int width, int height)
 	{
 		worldRenderer.resize(width, height);
 	}
 	
-	//Show function
+	/**
+	 * Show method
+	 */
 	@Override
 	public void show ()
 	{
@@ -58,7 +68,9 @@ public class GameScreen extends AbstractGameScreen
 		Gdx.input.setCatchBackKey(true);
 	}
 	
-	//Hide function
+	/**
+	 * Hide method
+	 */
 	@Override
 	public void hide ()
 	{
@@ -66,14 +78,18 @@ public class GameScreen extends AbstractGameScreen
 		Gdx.input.setCatchBackKey(false);
 	}
 	
-	//Pause function
+	/**
+	 * Pause method
+	 */
 	@Override
 	public void pause ()
 	{
 		paused = true;
 	}
 	
-	//Resume function
+	/**
+	 * Resume method
+	 */
 	@Override
 	public void resume ()
 	{

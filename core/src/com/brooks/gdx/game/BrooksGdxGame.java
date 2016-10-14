@@ -12,7 +12,9 @@ import com.brooks.gdx.game.screens.MenuScreen;
  */
 public class BrooksGdxGame extends Game
 {
-	//Create function
+	/**
+	 * Create method
+	 */
 	@Override
 	public void create ()
 	{

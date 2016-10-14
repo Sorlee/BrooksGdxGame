@@ -13,33 +13,51 @@ public abstract class AbstractGameScreen implements Screen
 	//Declare variables
 	protected Game game;
 	
+	/**
+	 * AbstractGameScreen method
+	 * @param game
+	 */
 	public AbstractGameScreen (Game game)
 	{
 		this.game = game;
 	}
 	
-	//Render function
+	/**
+	 * Render method
+	 */
 	public abstract void render(float deltaTime);
 	
-	//Resize function
+	/**
+	 * Resize method
+	 */
 	public abstract void resize(int width, int height);
 	
-	//Show function
+	/**
+	 * Show method
+	 */
 	public abstract void show ();
 	
-	//Hide function
+	/**
+	 * Hide method
+	 */
 	public abstract void hide ();
 	
-	//Pause function
+	/**
+	 * Pause method
+	 */
 	public abstract void pause ();
 	
-	//Resume function
+	/**
+	 * Resume method
+	 */
 	public void resume ()
 	{
 		Assets.instance.init(new AssetManager());
 	}
 	
-	//Dispose function
+	/**
+	 * Dispose method
+	 */
 	public void dispose ()
 	{
 		Assets.instance.dispose();

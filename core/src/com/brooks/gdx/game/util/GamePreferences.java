@@ -21,13 +21,17 @@ public class GamePreferences
 	public boolean showFpsCounter;
 	private Preferences prefs;
 	
-	//Singleton: prevent instantiation from other classes
+	/**
+	 * Singleton: prevent instantiation from other classes
+	 */
 	private GamePreferences ()
 	{
 		prefs = Gdx.app.getPreferences(Constants.PREFERENCES);
 	}
 	
-	//Load function
+	/**
+	 * Load method
+	 */
 	public void load ()
 	{
 		sound = prefs.getBoolean("sound", true);
@@ -38,7 +42,9 @@ public class GamePreferences
 		showFpsCounter = prefs.getBoolean("showFpsCounter", false);
 	}
 	
-	//Save function
+	/**
+	 * Save method
+	 */
 	public void save ()
 	{
 		prefs.putBoolean("sound", sound);

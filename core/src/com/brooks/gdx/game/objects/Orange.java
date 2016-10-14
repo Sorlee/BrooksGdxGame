@@ -13,12 +13,17 @@ public class Orange extends AbstractGameObject
  	private TextureRegion regOrange;
  	public boolean collected;
  	
+ 	/**
+ 	 * Orange method
+ 	 */
  	public Orange()
  	{
  		init();
  	}
  	
- 	//Init function
+ 	/**
+ 	 * Initialize method
+ 	 */
  	private void init ()
  	{
  		dimension.set(0.5f, 0.5f);
@@ -28,7 +33,9 @@ public class Orange extends AbstractGameObject
  		collected = false;
  	}
  	
- 	//Render function
+ 	/**
+ 	 * Render method
+ 	 */
  	public void render (SpriteBatch batch)
  	{
  		if (collected)
@@ -38,7 +45,10 @@ public class Orange extends AbstractGameObject
  		batch.draw(reg.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionHeight(), reg.getRegionWidth(), false, false);
  	}
  	
- 	//GetScore function
+ 	/**
+ 	 * GetScore method
+ 	 * @return
+ 	 */
  	public int getScore()
  	{
  		return 100;
