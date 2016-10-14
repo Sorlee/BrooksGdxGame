@@ -14,20 +14,32 @@ public enum CharacterSkin
 	private String name;
 	private Color color = new Color();
 	
+	/**
+	 * CharacterSkin method
+	 * @param name
+	 * @param r
+	 * @param g
+	 * @param b
+	 */
 	private CharacterSkin (String name, float r, float g, float b)
 	{
 		this.name= name;
 		color.set(r, g, b, 1.0f);
 	}
 	
-	//ToString function
+	/**
+	 * ToString method
+	 */
 	@Override
 	public String toString()
 	{
 		return name;
 	}
 	
-	//GetColor function
+	/**
+	 * GetColor method
+	 * @return
+	 */
 	public Color getColor ()
 	{
 		return color;

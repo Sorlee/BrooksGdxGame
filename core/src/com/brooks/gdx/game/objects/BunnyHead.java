@@ -1,12 +1,13 @@
 package com.brooks.gdx.game.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.brooks.gdx.game.Assets;
 import com.brooks.gdx.game.util.Constants;
 import com.brooks.gdx.game.util.CharacterSkin;
 import com.brooks.gdx.game.util.GamePreferences;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
 /**
  * Created by: Becky Brooks
@@ -18,6 +19,7 @@ public class BunnyHead extends AbstractGameObject
 	private final float JUMP_TIME_MAX = 0.3f;
 	private final float JUMP_TIME_MIN = 0.1f;
 	private final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
+	public ParticleEffect dustParticles = new ParticleEffect();
 	
 	public enum VIEW_DIRECTION
 	{
@@ -40,12 +42,17 @@ public class BunnyHead extends AbstractGameObject
 	public boolean hasFeatherPowerup;
 	public float timeLeftFeatherPowerup;
 	
+	/**
+	 * BunnyHead method
+	 */
 	public BunnyHead()
 	{
 		init();
 	}
 	
-	//Init function
+	/**
+	 * Init method
+	 */
 	public void init()
 	{
 		dimension.set(1, 1);
@@ -66,9 +73,14 @@ public class BunnyHead extends AbstractGameObject
 		//Powerups
 		hasFeatherPowerup = false;
 		timeLeftFeatherPowerup = 0;
+		//Particles
+		dustParticles.load(Gdx.files.internal("particles/dust"), Gdx.files.internal("particles"));
 	}
 	
-	//SetJumping function
+	/**
+	 * SetJumping method
+	 * @param jumpKeyPressed
+	 */
 	public void setJumping(boolean jumpKeyPressed)
 	{
 		switch(jumpState)
@@ -98,7 +110,10 @@ public class BunnyHead extends AbstractGameObject
 		}
 	}
 	
-	//SetFeatherPowerup function
+	/**
+	 * SetFeatherPowerup method
+	 * @param pickedUp
+	 */
 	public void setFeatherPowerup(boolean pickedUp)
 	{
 		hasFeatherPowerup = pickedUp;
@@ -108,13 +123,18 @@ public class BunnyHead extends AbstractGameObject
 		}
 	}
 	
-	//HasFeatherPowerup function
+	/**
+	 * HasFeatherPowerup method
+	 * @return
+	 */
 	public boolean hasFeatherPowerup()
 	{
 		return hasFeatherPowerup && timeLeftFeatherPowerup > 0;
 	}
 	
-	//Update function
+	/**
+	 * Update method
+	 */
 	@Override
 	public void update (float deltaTime)
 	{
@@ -133,9 +153,12 @@ public class BunnyHead extends AbstractGameObject
 				setFeatherPowerup(false);
 			}
 		}
+		dustParticles.update(deltaTime);
 	}
 	
-	//UpdateMotionY function
+	/**
+	 * UpdateMotionY method
+	 */
 	@Override
 	protected void updateMotionY (float deltaTime)
 	{
@@ -143,6 +166,11 @@ public class BunnyHead extends AbstractGameObject
 		{
 			case GROUNDED:
 				jumpState = JUMP_STATE.FALLING;
+				if (velocity.x != 0)
+				{
+					dustParticles.setPosition(position.x + dimension.x / 2, position.y);
+					dustParticles.start();
+				}
 				break;
 			case JUMP_RISING:
 				//Keep track of jump time
@@ -168,15 +196,21 @@ public class BunnyHead extends AbstractGameObject
 		}
 		if (jumpState != JUMP_STATE.GROUNDED)
 		{
+			dustParticles.allowCompletion();
 			super.updateMotionY(deltaTime);
 		}
 	}
 	
-	//Render function
+	/**
+	 * Render method
+	 */
 	@Override
 	public void render (SpriteBatch batch)
 	{
 		TextureRegion reg = null;
+		
+		//Draw Particles
+		dustParticles.draw(batch);
 		
 		//Apply Skin Color
 		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());

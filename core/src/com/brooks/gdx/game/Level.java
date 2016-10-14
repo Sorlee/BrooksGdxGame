@@ -58,12 +58,19 @@ public class Level
 	public Mountains mountains;
 	public WaterOverlay waterOverlay;
 
+	/**
+	 * Level method
+	 * @param filename
+	 */
 	public Level (String filename)
 	{
 		init(filename);
 	}
 
-	//Init function
+	/**
+	 * Init method
+	 * @param filename
+	 */
 	private void init (String filename)
 	{
 		//Player character
@@ -160,7 +167,10 @@ public class Level
 		Gdx.app.debug(TAG, "level '" + filename + "' loaded");
 	}
 
-	// Render function
+	/**
+	 * Render method
+	 * @param batch
+	 */
 	public void render (SpriteBatch batch)
 	{
 		//Draw mountains
@@ -182,7 +192,10 @@ public class Level
 		clouds.render(batch);
 	}
 	
-	//Update function
+	/**
+	 * Update method
+	 * @param deltaTime
+	 */
 	public void update (float deltaTime)
 	{
 		bunnyHead.update(deltaTime);

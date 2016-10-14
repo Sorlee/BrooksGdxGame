@@ -1,17 +1,10 @@
 package com.brooks.gdx.game;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.brooks.gdx.game.util.CameraHelper;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
 import com.brooks.gdx.game.objects.Rock;
 import com.brooks.gdx.game.util.Constants;
 import com.badlogic.gdx.math.Rectangle;
@@ -19,7 +12,6 @@ import com.brooks.gdx.game.objects.BunnyHead;
 import com.brooks.gdx.game.objects.BunnyHead.JUMP_STATE;
 import com.brooks.gdx.game.objects.Feather;
 import com.brooks.gdx.game.objects.GoldCoin;
-import com.brooks.gdx.game.objects.Rock;
 import com.badlogic.gdx.Game;
 import com.brooks.gdx.game.screens.MenuScreen;
 
@@ -38,8 +30,13 @@ public class WorldController extends InputAdapter
 	private Rectangle r2 = new Rectangle();
 	private float timeLeftGameOverDelay;
 	private Game game;
+	public float livesVisual;
+	public float scoreVisual;
 	
-	//Bunny <-> Rock collisions
+	/**
+	 * Bunny <-> Rock collisions
+	 * @param rock
+	 */
 	private void onCollisionBunnyHeadWithRock(Rock rock)
 	{
 		BunnyHead bunnyHead = level.bunnyHead;
@@ -69,7 +66,10 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
-	//Bunny <-> Gold Coin collisions
+	/**
+	 * Bunny <-> Gold Coin collisions
+	 * @param goldcoin
+	 */
 	private void onCollisionBunnyWithGoldCoin(GoldCoin goldcoin)
 	{
 		goldcoin.collected = true;
@@ -77,7 +77,10 @@ public class WorldController extends InputAdapter
 		Gdx.app.log(TAG, "Gold coin collected");
 	}
 	
-	//Bunny <-> Feather collisions
+	/**
+	 * Bunny <-> Feather collisions
+	 * @param feather
+	 */
 	private void onCollisionBunnyWithFeather(Feather feather)
 	{
 		feather.collected = true;
@@ -86,49 +89,44 @@ public class WorldController extends InputAdapter
 		Gdx.app.log(TAG, "Feather collected");
 	}
 	
-	//Initialize the first level
+	/**
+	 * Initialize the first level
+	 */
 	private void initLevel()
 	{
 		score = 0;
+		scoreVisual = score;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.bunnyHead);
 	}
 
-	//Initializes the WorldController
+	/**
+	 * Initializes the WorldController
+	 * @param game
+	 */
 	public WorldController (Game game)
 	{
 		this.game = game;
 		init();
 	}
 	
-	//Initialize function
+	/**
+	 * Initialize method
+	 */
 	private void init ()
 	{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		lives = Constants.LIVES_START;
+		livesVisual = lives;
 		timeLeftGameOverDelay = 0;
 		initLevel();
 	}
 	
-	//Pixmap creator
-	private Pixmap createProceduralPixmap (int width, int height)
-	{
-		Pixmap pixmap = new Pixmap(width, height, Format.RGBA8888);
-		//Fill square with a red color at 50% opacity
-		pixmap.setColor(1, 0, 0, 0.5f);
-		pixmap.fill();
-		//Draw a yellow-colored X shape on square
-		pixmap.setColor(1, 1, 0, 1);
-		pixmap.drawLine(0, 0, width, height);
-		pixmap.drawLine(width, 0, 0, height);
-		//Draw a cyan-colored border around square
-		pixmap.setColor(0, 1, 1, 1);
-		pixmap.drawRectangle(0, 0, width, height);
-		return pixmap;
-	}
-	
-	//Update function
+	/**
+	 * Update method
+	 * @param deltaTime
+	 */
 	public void update (float deltaTime)
 	{
 		handleDebugInput(deltaTime);
@@ -152,9 +150,17 @@ public class WorldController extends InputAdapter
 			else
 				initLevel();
 		}
+		level.mountains.updateScrollPosition(cameraHelper.getPosition());
+		if (livesVisual > lives)
+			livesVisual = Math.max(lives, livesVisual - 1 * deltaTime);
+		if (scoreVisual < score)
+			scoreVisual = Math.min(score, scoreVisual + 250 * deltaTime);
 	}
 	
-	//Handler for the camera movement in order to debug
+	/**
+	 * Handler for the camera movement in order to debug
+	 * @param deltaTime
+	 */
 	private void handleDebugInput (float deltaTime)
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop)
@@ -192,7 +198,11 @@ public class WorldController extends InputAdapter
 			cameraHelper.setZoom(1);
 	}
 	
-	//Move the camera
+	/**
+	 * Move the camera
+	 * @param x
+	 * @param y
+	 */
 	private void moveCamera (float x, float y)
 	{
 		x += cameraHelper.getPosition().x;
@@ -200,7 +210,9 @@ public class WorldController extends InputAdapter
 		cameraHelper.setPosition(x, y);
 	}
 	
-	//Reset the game world
+	/**
+	 * Reset the game world
+	 */
 	@Override
 	public boolean keyUp (int keycode)
 	{
@@ -222,7 +234,9 @@ public class WorldController extends InputAdapter
 		return false;
 	}
 	
-	//TestCollisions function
+	/**
+	 * TestCollisions method
+	 */
 	private void testCollisions()
 	{
 		r1.set(level.bunnyHead.position.x, level.bunnyHead.position.y, level.bunnyHead.bounds.width, level.bunnyHead.bounds.height);
@@ -259,7 +273,10 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
-	//HandleInputGame function
+	/**
+	 * HandleInputGame method
+	 * @param deltaTime
+	 */
 	private void handleInputGame (float deltaTime)
 	{
 		if (cameraHelper.hasTarget(level.bunnyHead))
@@ -284,19 +301,27 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
-	//IsGameOver function
+	/**
+	 * IsGameOver method
+	 * @return
+	 */
 	public boolean isGameOver()
 	{
 		return lives < 0;
 	}
 	
-	//isPlayerInWater function
+	/**
+	 * IsPlayerInWater method
+	 * @return
+	 */
 	public boolean isPlayerInWater()
 	{
 		return level.bunnyHead.position.y < -5;
 	}
 	
-	//BackToMenu function
+	/**
+	 * BackToMenu method
+	 */
 	private void backToMenu ()
 	{
 		//Switch to menu screen

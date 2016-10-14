@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.brooks.gdx.game.util.Constants;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.brooks.gdx.game.util.GamePreferences;
+import com.badlogic.gdx.math.MathUtils;
 
 /**
  * Created by: Becky Brooks
@@ -21,14 +21,19 @@ public class WorldRenderer implements Disposable
 	private WorldController worldController;
 	private OrthographicCamera cameraGUI;
 	
-	//Initialize the WorldRenderer
+	/**
+	 * Initialize the WorldRenderer
+	 * @param worldController
+	 */
 	public WorldRenderer (WorldController worldController)
 	{
 		this.worldController = worldController;
 		init();
 	}
 	
-	//Initialize function
+	/**
+	 * Initialize method
+	 */
 	private void init ()
 	{
 		batch = new SpriteBatch();
@@ -41,14 +46,19 @@ public class WorldRenderer implements Disposable
 		cameraGUI.update();
 	}
 	
-	//Render function
+	/**
+	 * Render method
+	 */
 	public void render ()
 	{
 		renderWorld(batch);
 		renderGui(batch);
 	}
 	
-	//RenderWorld function
+	/**
+	 * RenderWorld method
+	 * @param batch
+	 */
 	private void renderWorld (SpriteBatch batch)
 	{
 		worldController.cameraHelper.applyTo(camera);
@@ -58,7 +68,11 @@ public class WorldRenderer implements Disposable
 		batch.end();
 	}
 	
-	//Resize function
+	/**
+	 * Resize method
+	 * @param width
+	 * @param height
+	 */
 	public void resize (int width, int height)
 	{
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
@@ -69,23 +83,40 @@ public class WorldRenderer implements Disposable
 		cameraGUI.update();
 	}
 	
-	//Dispose function
+	/**
+	 * Dispose method
+	 */
 	@Override
 	public void dispose ()
 	{
 		batch.dispose();
 	}
 	
-	//RenderGuiScore function
+	/**
+	 * RenderGuiScore method
+	 * @param batch
+	 */
 	private void renderGuiScore (SpriteBatch batch)
 	{
 		float x = -15;
 		float y = -15;
-		batch.draw(Assets.instance.goldCoin.goldCoin, x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
-		Assets.instance.fonts.defaultBig.draw(batch, "" + worldController.score, x + 75, y + 37);
+		float offsetX = 50;
+		float offsetY = 50;
+		if (worldController.scoreVisual < worldController.score)
+		{
+			long shakeAlpha = System.currentTimeMillis() % 360;
+			float shakeDist = 1.5f;
+			offsetX += MathUtils.sinDeg(shakeAlpha * 2.2f) * shakeDist;
+			offsetY += MathUtils.sinDeg(shakeAlpha * 2.9f) * shakeDist;
+		}
+		batch.draw(Assets.instance.goldCoin.goldCoin, x, y, offsetX, offsetY, 100, 100, 0.35f, -0.35f, 0);
+		Assets.instance.fonts.defaultBig.draw(batch, "" + (int)worldController.scoreVisual, x + 75, y + 37);
 	}
 	
-	//RenderGuiExtraLive function
+	/**
+	 * RenderGuiExtraLive method
+	 * @param batch
+	 */
 	private void renderGuiExtraLive (SpriteBatch batch)
 	{
 		float x = cameraGUI.viewportWidth - 50 - Constants.LIVES_START * 50;
@@ -99,9 +130,22 @@ public class WorldRenderer implements Disposable
 			batch.draw(Assets.instance.bunny.head, x + i * 50, y, 50, 50, 120, 100, 0.35f, -0.35f, 0);
 			batch.setColor(1, 1, 1, 1);
 		}
+		if (worldController.lives >= 0 && worldController.livesVisual > worldController.lives)
+		{
+			int i = worldController.lives;
+			float alphaColor = Math.max(0, worldController.livesVisual - worldController.lives - 0.5f);
+			float alphaScale = 0.35f * (2 + worldController.lives - worldController.livesVisual) * 2;
+			float alphaRotate = -45 * alphaColor;
+			batch.setColor(1.0f, 0.7f, 0.7f, alphaColor);
+			batch.draw(Assets.instance.bunny.head, x + i + 50, y, 50, 50, 120, 100, alphaScale, -alphaScale, alphaRotate);
+			batch.setColor(1, 1, 1, 1);
+		}
 	}
 	
-	//RenderGuiFpsCounter function
+	/**
+	 * RenderGuiFpsCounter method
+	 * @param batch
+	 */
 	private void renderGuiFpsCounter (SpriteBatch batch)
 	{
 		float x = cameraGUI.viewportWidth - 55;
@@ -127,7 +171,10 @@ public class WorldRenderer implements Disposable
 		fpsFont.setColor(1,1,1,1);	//white
 	}
 	
-	//RenderGui function
+	/**
+	 * RenderGui method
+	 * @param batch
+	 */
 	private void renderGui (SpriteBatch batch)
 	{
 		batch.setProjectionMatrix(cameraGUI.combined);
@@ -146,7 +193,10 @@ public class WorldRenderer implements Disposable
 		batch.end();
 	}
 	
-	//RenderGuiGameOverMessage function
+	/**
+	 * RenderGuiGameOverMessage method
+	 * @param batch
+	 */
 	private void renderGuiGameOverMessage (SpriteBatch batch)
 	{
 		float x = cameraGUI.viewportWidth / 2;
@@ -160,7 +210,10 @@ public class WorldRenderer implements Disposable
 		}
 	}
 	
-	//RenderGuiFeatherPowerup function
+	/**
+	 * RenderGuiFeatherPowerup method
+	 * @param batch
+	 */
 	private void renderGuiFeatherPowerup(SpriteBatch batch)
 	{
 		float x = -15;

@@ -17,82 +17,119 @@ public class CameraHelper
 	private Vector2 position;
 	private float zoom;
 	private AbstractGameObject target;
+	private final float FOLLOW_SPEED = 4.0f;
 	
-	//Positions the camera
+	/**
+	 * Positions the camera
+	 */
 	public CameraHelper ()
 	{
 		position = new Vector2();
 		zoom = 1.0f;
 	}
 	
-	//Updates based on how much gametime has passed
+	/**
+	 * Updates based on how much game time had passed
+	 * @param deltaTime
+	 */
 	public void update (float deltaTime)
 	{
 		if (!hasTarget())
-		return;
+			return;
 		
-		position.x = target.position.x + target.origin.x;
-		position.y = target.position.y + target.origin.y;
+		position.lerp(target.position, FOLLOW_SPEED * deltaTime);
 		
 		//Prevent camera from moving down too far
 		position.y = Math.max(-1f, position.y);
 	}
 	
-	//Sets the position of an object to the given coordinates
+	/**
+	 * Sets the position of an object to the given coordinates
+	 * @param x
+	 * @param y
+	 */
 	public void setPosition (float x, float y)
 	{
 		this.position.set(x, y);
 	}
 	
-	//Returns the position of an object
+	/**
+	 * Returns the position of an object
+	 * @return
+	 */
 	public Vector2 getPosition()
 	{
 		return position;
 	}
 	
-	//Zooms in
+	/**
+	 * Zooms in
+	 * @param amount
+	 */
 	public void addZoom (float amount)
 	{
 		setZoom(zoom + amount);
 	}
 	
-	//Sets the zoom amount
+	/**
+	 * Sets the zoom amount
+	 * @param zoom
+	 */
 	public void setZoom (float zoom)
 	{
 		this.zoom = MathUtils.clamp(zoom, MAX_ZOOM_IN, MAX_ZOOM_OUT);
 	}
 	
-	//Returns the zoom amount
+	/**
+	 * Returns the zoom amount
+	 * @return
+	 */
 	public float getZoom ()
 	{
 		return zoom;
 	}
 	
-	//Changes the target to the given sprite
+	/**
+	 * Changes the target to the given sprite
+	 * @param target
+	 */
 	public void setTarget (AbstractGameObject target)
 	{
 		this.target = target;
 	}
 	
-	//Returns the sprite that is currently targetted
+	/**
+	 * Returns the sprite that is currently targeted
+	 * @return
+	 */
 	public AbstractGameObject getTarget ()
 	{
 		return target;
 	}
 	
-	//Checks to see if there is a target
+	/**
+	 * Checks to see if there is a target
+	 * @return
+	 */
 	public boolean hasTarget()
 	{
 		return target != null;
 	}
 	
-	//Checks to see if the specific sprite is being targetted
+	/**
+	 * Checks to see if the specific sprite is being targeted
+	 * @param target
+	 * @return
+	 */
 	public boolean hasTarget (AbstractGameObject target)
 	{
 		return hasTarget() && this.target.equals(target);
 	}
 	
-	//Changes the camera's position
+	/**
+	 * Changes the camera's position
+	 * @param camera
+	 */
 	public void applyTo (OrthographicCamera camera)
 	{
 		camera.position.x = position.x;

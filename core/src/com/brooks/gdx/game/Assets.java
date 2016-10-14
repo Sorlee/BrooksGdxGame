@@ -28,12 +28,17 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetLevelDecoration levelDecoration;
 	public AssetFonts fonts;
 
-	//singleton: prevent instantiation from other classes
+	/**
+	 * Assets method
+	 * singleton: prevent instantiation from other classes 
+	 */
 	private Assets()
 	{
 	}
 	
-	//Class for AssetFonts
+	/**
+	 * Class for AssetFonts
+	 */
 	public class AssetFonts
 	{
 		//Declare variables
@@ -58,7 +63,10 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Init function
+	/**
+	 * Init method
+	 * @param assetManager
+	 */
 	public void init (AssetManager assetManager)
 	{
 		this.assetManager = assetManager;
@@ -87,7 +95,9 @@ public class Assets implements Disposable, AssetErrorListener
 		levelDecoration = new AssetLevelDecoration(atlas);
 	}
 	
-	//Dispose function
+	/**
+	 * Dispose method
+	 */
 	@Override
 	public void dispose()
 	{
@@ -98,20 +108,29 @@ public class Assets implements Disposable, AssetErrorListener
 		fonts.defaultBig.dispose();
 	}
 	
-	//Error handler when an asset can't be loaded
+	/**
+	 * Error handler when an asset can't be loaded
+	 * @param filename
+	 * @param type
+	 * @param throwable
+	 */
 	public void error(String filename, Class type, Throwable throwable)
 	{
 		Gdx.app.error(TAG, "Couldn't load asset '" + filename + "'", (Exception)throwable);
 	}
 	
-	//Error handler when an asset can't be loaded
+	/**
+	 * Error handler when an asset can't be loaded
+	 */
 	@Override
 	public void error(AssetDescriptor asset, Throwable throwable)
 	{
 		Gdx.app.error(TAG, "Couldn't load asset '" + asset.fileName + "'", (Exception)throwable);
 	}
 	
-	//Class for the bunny head
+	/**
+	 * Class for the bunny head
+	 */
 	public class AssetBunny
 	{
 		public final AtlasRegion head;
@@ -122,7 +141,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the rock (edges and middle)
+	/**
+	 * Class for the rock (edges and middle)
+	 */
 	public class AssetRock
 	{
 		public final AtlasRegion edge;
@@ -135,7 +156,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the coin
+	/**
+	 * Class for the coin
+	 */
 	public class AssetGoldCoin
 	{
 		public final AtlasRegion goldCoin;
@@ -146,7 +169,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the feather
+	/**
+	 * Class for the feather
+	 */
 	public class AssetFeather
 	{
 		public final AtlasRegion feather;
@@ -157,7 +182,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//Class for the clouds, mountains, and water overlay
+	/**
+	 * Class for the clouds, mountains, and water overlay
+	 */
 	public class AssetLevelDecoration
 	{
 		public final AtlasRegion cloud01;
@@ -169,12 +196,12 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		public AssetLevelDecoration (TextureAtlas atlas)
 		{
-			cloud01 =atlas.findRegion("cloud01");
-			cloud02 =atlas.findRegion("cloud02");
-			cloud03 =atlas.findRegion("cloud03");
-			mountainLeft =atlas.findRegion("mountain_left");
-			mountainRight =atlas.findRegion("mountain_right");
-			waterOverlay =atlas.findRegion("water_overlay");
+			cloud01 = atlas.findRegion("cloud01");
+			cloud02 = atlas.findRegion("cloud02");
+			cloud03 = atlas.findRegion("cloud03");
+			mountainLeft = atlas.findRegion("mountain_left");
+			mountainRight = atlas.findRegion("mountain_right");
+			waterOverlay = atlas.findRegion("water_overlay");
 		}
 	}
 }
