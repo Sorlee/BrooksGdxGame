@@ -25,6 +25,7 @@ import com.brooks.gdx.game.Assets;
 import com.brooks.gdx.game.util.Constants;
 import com.brooks.gdx.game.util.CharacterSkin;
 import com.brooks.gdx.game.util.GamePreferences;
+import com.brooks.gdx.game.util.AudioManager;
 
 /**
  * Created by: Becky Brooks
@@ -340,6 +341,7 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		saveSettings();
 		onCancelClicked();
+		AudioManager.instance.onSettingsUpdated();
 	}
 	
 	/**
@@ -350,6 +352,7 @@ public class MenuScreen extends AbstractGameScreen
 		btnMenuPlay.setVisible(true);
 		btnMenuOptions.setVisible(true);
 		winOptions.setVisible(false);
+		AudioManager.instance.onSettingsUpdated();
 	}
 	
 	/**
