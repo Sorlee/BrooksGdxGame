@@ -17,6 +17,7 @@ import com.brooks.gdx.game.objects.Orange;
 import com.brooks.gdx.game.objects.Enemy;
 import com.badlogic.gdx.Game;
 import com.brooks.gdx.game.screens.MenuScreen;
+import com.brooks.gdx.game.util.AudioManager;
 
 /**
  * Created by: Becky Brooks
@@ -76,6 +77,7 @@ public class WorldController extends InputAdapter
 	private void onCollisionKnightWithOrange(Orange orange)
 	{
 		orange.collected = true;
+		AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
 		score += orange.getScore();
 		if (score < 0)
 			score = 0;
@@ -89,6 +91,7 @@ public class WorldController extends InputAdapter
 	private void onCollisionKnightWithPotion(Potion potion)
 	{
 		potion.collected = true;
+		AudioManager.instance.play(Assets.instance.sounds.pickupFeather);
 		score += potion.getScore();
 		if (score < 0)
 			score = 0;
@@ -103,6 +106,7 @@ public class WorldController extends InputAdapter
 	private void onCollisionKnightWithEnemy(Enemy enemy)
 	{
 		enemy.collected = true;
+		AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
 		score -= enemy.getScore();
 		if (score < 0)
 			score = 0;
@@ -164,6 +168,7 @@ public class WorldController extends InputAdapter
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInGoo())
 		{
+			AudioManager.instance.play(Assets.instance.sounds.liveLost);
 			lives--;
 			if (isGameOver())
 				timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;

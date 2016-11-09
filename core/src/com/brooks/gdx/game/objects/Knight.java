@@ -8,6 +8,8 @@ import com.brooks.gdx.game.util.CharacterSkin;
 import com.brooks.gdx.game.util.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.math.MathUtils;
+import com.brooks.gdx.game.util.AudioManager;
 
 /**
  * Created by: Becky Brooks
@@ -88,6 +90,7 @@ public class Knight extends AbstractGameObject
  			case GROUNDED: //Character is standing on a platform
  				if (jumpKeyPressed)
  				{
+ 					AudioManager.instance.play(Assets.instance.sounds.jump);
  					//Start counting jump time from the beginning
  					timeJumping = 0;
  					jumpState = JUMP_STATE.JUMP_RISING;
@@ -103,6 +106,7 @@ public class Knight extends AbstractGameObject
  			case JUMP_FALLING: //Falling down after jump
  				if (jumpKeyPressed && hasPotionPowerup)
  				{
+ 					AudioManager.instance.play(Assets.instance.sounds.jumpWithFeather, 1, MathUtils.random(1.0f, 1.1f));
  					timeJumping = JUMP_TIME_OFFSET_FLYING;
  					jumpState = JUMP_STATE.JUMP_RISING;
  				}
