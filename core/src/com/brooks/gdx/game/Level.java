@@ -12,6 +12,8 @@ import com.brooks.gdx.game.objects.WaterOverlay;
 import com.brooks.gdx.game.objects.BunnyHead;
 import com.brooks.gdx.game.objects.Feather;
 import com.brooks.gdx.game.objects.GoldCoin;
+import com.brooks.gdx.game.objects.Carrot;
+import com.brooks.gdx.game.objects.Goal;
 
 /**
  * Created by: Becky Brooks
@@ -25,6 +27,7 @@ public class Level
 	public Array<GoldCoin> goldcoins;
 	public Array<Feather> feathers;
 	public Array<Rock> rocks;
+	public Array<Carrot> carrots;
 	
 	//State the color pixel that represents each asset
 	public enum BLOCK_TYPE
@@ -33,7 +36,8 @@ public class Level
 		ROCK(0, 255, 0), //green
 		PLAYER_SPAWNPOINT(255, 255, 255), //white
 		ITEM_FEATHER(255, 0, 255), //purple
-		ITEM_GOLD_COIN(255, 255, 0); //yellow
+		ITEM_GOLD_COIN(255, 255, 0), //yellow
+		GOAL(255, 0, 0); //red
 
 		private int color;
 		//Bit-shift RGB to use Hexidecimal
@@ -57,6 +61,7 @@ public class Level
 	public Clouds clouds;
 	public Mountains mountains;
 	public WaterOverlay waterOverlay;
+	public Goal goal;
 
 	/**
 	 * Level method
@@ -79,6 +84,7 @@ public class Level
 		rocks = new Array<Rock>();
 		goldcoins = new Array<GoldCoin>();
 		feathers = new Array<Feather>();
+		carrots = new Array<Carrot>();
 
 		//Load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -141,6 +147,14 @@ public class Level
 						obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
 						goldcoins.add((GoldCoin)obj);
 				}
+				//Goal
+				else if (BLOCK_TYPE.GOAL.sameColor(currentPixel))
+				{
+					obj = new Goal();
+					offsetHeight = -7.0f;
+					obj.position.set(pixelX, baseHeight + offsetHeight);
+					goal = (Goal)obj;
+				}
 				//Unknown object / pixel color
 				else
 				{
@@ -175,6 +189,8 @@ public class Level
 	{
 		//Draw mountains
 		mountains.render(batch);
+		//Draw goal
+		goal.render(batch);
 		//Draw rocks
 		for (Rock rock : rocks)
 			rock.render(batch);
@@ -184,6 +200,9 @@ public class Level
 		//Draw Feathers
 		for (Feather feather : feathers)
 			feather.render(batch);
+		//Draw carrots
+		for (Carrot carrot : carrots)
+			carrot.render(batch);
 		//Draw Player Character
 		bunnyHead.render(batch);
 		//Draw waterOverlay
@@ -205,6 +224,8 @@ public class Level
 			goldCoin.update(deltaTime);
 		for (Feather feather : feathers)
 			feather.update(deltaTime);
+		for (Carrot carrot : carrots)
+			carrot.update(deltaTime);
 		clouds.update(deltaTime);
 	}
 }
