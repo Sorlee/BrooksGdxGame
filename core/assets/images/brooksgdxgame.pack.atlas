@@ -1,0 +1,326 @@
+
+brooksgdxgame.pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+City
+  rotate: false
+  xy: 2, 608
+  size: 1008, 379
+  orig: 1008, 379
+  offset: 0, 0
+  index: -1
+Enemy1-1
+  rotate: false
+  xy: 960, 556
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Enemy1-2
+  rotate: false
+  xy: 382, 40
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Enemy1-3
+  rotate: false
+  xy: 810, 469
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Enemy1-4
+  rotate: false
+  xy: 434, 40
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Enemy1-5
+  rotate: false
+  xy: 810, 417
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Enemy2-1
+  rotate: false
+  xy: 914, 475
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+Enemy2-2
+  rotate: false
+  xy: 862, 371
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+Enemy2-3
+  rotate: false
+  xy: 590, 46
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+Enemy2-4
+  rotate: false
+  xy: 914, 429
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+Enemy2-5
+  rotate: false
+  xy: 635, 46
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+GooOverlay
+  rotate: false
+  xy: 776, 359
+  size: 32, 160
+  orig: 32, 160
+  offset: 0, 0
+  index: -1
+Knight
+  rotate: false
+  xy: 776, 308
+  size: 22, 49
+  orig: 22, 49
+  offset: 0, 0
+  index: -1
+LeftEdge
+  rotate: false
+  xy: 862, 469
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Middle
+  rotate: false
+  xy: 486, 40
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Orange
+  rotate: false
+  xy: 810, 365
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Potion
+  rotate: false
+  xy: 862, 417
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+RightEdge
+  rotate: false
+  xy: 538, 40
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+cloud01
+  rotate: false
+  xy: 202, 12
+  size: 178, 78
+  orig: 178, 78
+  offset: 0, 0
+  index: -1
+cloud02
+  rotate: false
+  xy: 2, 2
+  size: 198, 88
+  orig: 198, 88
+  offset: 0, 0
+  index: -1
+cloud03
+  rotate: false
+  xy: 776, 521
+  size: 182, 85
+  orig: 182, 85
+  offset: 0, 0
+  index: -1
+smoke1
+  rotate: false
+  xy: 2, 350
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke2
+  rotate: false
+  xy: 2, 92
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke3
+  rotate: false
+  xy: 260, 350
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke4
+  rotate: false
+  xy: 260, 92
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke5
+  rotate: false
+  xy: 518, 350
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke6
+  rotate: false
+  xy: 518, 92
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+
+brooksgdxgame.pack2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+smoke10
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke11
+  rotate: false
+  xy: 260, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke12
+  rotate: false
+  xy: 518, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke13
+  rotate: false
+  xy: 260, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke14
+  rotate: false
+  xy: 518, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke15
+  rotate: false
+  xy: 518, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke7
+  rotate: false
+  xy: 2, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke8
+  rotate: false
+  xy: 2, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke9
+  rotate: false
+  xy: 260, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+
+brooksgdxgame.pack3.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+smoke16
+  rotate: false
+  xy: 2, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke17
+  rotate: false
+  xy: 2, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke18
+  rotate: false
+  xy: 260, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke19
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke20
+  rotate: false
+  xy: 260, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke21
+  rotate: false
+  xy: 518, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke22
+  rotate: false
+  xy: 260, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+smoke23
+  rotate: false
+  xy: 518, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
