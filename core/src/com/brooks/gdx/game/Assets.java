@@ -223,6 +223,7 @@ public class Assets implements Disposable, AssetErrorListener
 		public final AtlasRegion cloud03;
 		public final AtlasRegion city;
 		public final AtlasRegion gooOverlay;
+		public final AtlasRegion smoke;
 		
 		public AssetLevelDecoration (TextureAtlas atlas)
 		{
@@ -231,6 +232,7 @@ public class Assets implements Disposable, AssetErrorListener
 			cloud03 = atlas.findRegion("cloud03");
 			city = atlas.findRegion("City");
 			gooOverlay = atlas.findRegion("GooOverlay");
+			smoke = atlas.findRegion("smoke1");
 		}
 	}
 	

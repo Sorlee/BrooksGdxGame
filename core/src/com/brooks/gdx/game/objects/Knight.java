@@ -57,7 +57,7 @@ public class Knight extends AbstractGameObject
  	 */
  	public void init()
  	{
- 		dimension.set(0.75f, 1.25f);
+ 		dimension.set(0.5f, 1.0f);
  		regHead = Assets.instance.knight.knight;
  		//Center image on game object
  		origin.set(dimension.x / 2, dimension.y / 2);

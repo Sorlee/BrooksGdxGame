@@ -30,7 +30,7 @@ public class City extends AbstractGameObject
  	 */
  	public void init()
  	{
- 		dimension.set(10, 2);
+ 		dimension.set(8, 2);
  		regCity = Assets.instance.levelDecoration.city;
  
  		//Shift city and extend length
@@ -55,7 +55,7 @@ public class City extends AbstractGameObject
  
  		//City spans the whole level
  		int cityLength = 0;
- 		cityLength += MathUtils.ceil(length / (2 * dimension.x) * (1 - parallaxSpeedX));
+ 		cityLength += MathUtils.ceil(length / dimension.x * (1 - parallaxSpeedX));
  		cityLength += MathUtils.ceil(0.5f + offsetX);
  		for (int i = 0; i < cityLength; i++)
  		{

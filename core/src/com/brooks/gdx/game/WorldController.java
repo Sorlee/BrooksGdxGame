@@ -18,11 +18,21 @@ import com.brooks.gdx.game.objects.Enemy;
 import com.badlogic.gdx.Game;
 import com.brooks.gdx.game.screens.MenuScreen;
 import com.brooks.gdx.game.util.AudioManager;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.Input.Peripheral;
 
 /**
  * Created by: Becky Brooks
  */
-public class WorldController extends InputAdapter
+public class WorldController extends InputAdapter implements Disposable
 {
 	//Declare variables
 	private static final String TAG = WorldController.class.getName();
@@ -36,6 +46,9 @@ public class WorldController extends InputAdapter
 	private Game game;
 	public float livesVisual;
 	public float scoreVisual;
+	private boolean smokeReached;
+	public World b2world;
+	private boolean accelerometerAvailable;
 	
 	/**
 	 * Knight <-> Rock collisions
@@ -114,14 +127,27 @@ public class WorldController extends InputAdapter
 	}
 	
 	/**
+	 * Knight <-> Smoke collisions
+	 */
+	private void onCollisionKnightWithSmoke()
+	{
+		smokeReached = true;
+		timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_FINISHED;
+		Vector2 centerPosKnight = new Vector2(level.knight.position);
+		centerPosKnight.x += level.knight.bounds.width;
+	}
+	
+	/**
 	 * Initialize the first level
 	 */
 	private void initLevel()
 	{
 		score = 0;
 		scoreVisual = score;
+		smokeReached = false;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.knight);
+		initPhysics();
 	}
 
 	/**
@@ -139,7 +165,7 @@ public class WorldController extends InputAdapter
 	 */
 	private void init ()
 	{
-		Gdx.input.setInputProcessor(this);
+		accelerometerAvailable = Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
 		cameraHelper = new CameraHelper();
 		lives = Constants.LIVES_START;
 		livesVisual = lives;
@@ -154,17 +180,19 @@ public class WorldController extends InputAdapter
 	public void update (float deltaTime)
 	{
 		handleDebugInput(deltaTime);
-		if (isGameOver())
+		if (isGameOver() || smokeReached)
 		{
 			timeLeftGameOverDelay -= deltaTime;
 			if (timeLeftGameOverDelay < 0)
 				backToMenu();
-			else
+		}
+		else
+		{
 				handleInputGame(deltaTime);
 		}
-		handleInputGame(deltaTime);
 		level.update(deltaTime);
 		testCollisions();
+		b2world.step(deltaTime,  8,  3);
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInGoo())
 		{
@@ -308,6 +336,16 @@ public class WorldController extends InputAdapter
 			onCollisionKnightWithEnemy(enemy);
 			break;
 		}
+		
+		//Test collision: Knight <-> Smoke
+		if (!smokeReached)
+		{
+			r2.set(level.smoke.bounds);
+			r2.x += level.smoke.position.x;
+			r2.y += level.smoke.position.y;
+			if (r1.overlaps(r2))
+				onCollisionKnightWithSmoke();
+		}
 	}
 	
 	/**
@@ -325,9 +363,27 @@ public class WorldController extends InputAdapter
 				level.knight.velocity.x = level.knight.terminalVelocity.x;
 			else
 			{
+				//Use accelerometer for movement if available
+				if (accelerometerAvailable)
+				{
+					//Normalize accelerometer values from [-10, 10] to [-1, 1]
+					//which translate to rotations of [-90, 90] degrees
+					float amount = Gdx.input.getAccelerometerY() / 10.0f;
+					amount *= 90.0f;
+					//Is angle of rotation inside dead zone?
+					if (Math.abs(amount) < Constants.ACCEL_ANGLE_DEAD_ZONE)
+						amount = 0;
+					else
+					{
+						//Use the defined max angle of rotation instead of the
+						//full 90 degrees for maximum velocity
+						amount /= Constants.ACCEL_MAX_ANGLE_MAX_MOVEMENT;
+					}
+					level.knight.velocity.x = level.knight.terminalVelocity.x * amount;
+				}
 				//Execute auto-forward movement on non-desktop platform
-				if (Gdx.app.getType() != ApplicationType.Desktop)
-					level.knight.velocity.x = level.knight.terminalVelocity.x;
+				else if (Gdx.app.getType() != ApplicationType.Desktop)
+  					level.knight.velocity.x = level.knight.terminalVelocity.x;
 			}
 			
 			//Knight Jump
@@ -363,5 +419,43 @@ public class WorldController extends InputAdapter
 	{
 		//Switch to menu screen
 		game.setScreen(new MenuScreen(game));
+	}
+	
+	/**
+	 * InitPhysics function
+	 */
+	private void initPhysics()
+	{
+		if (b2world != null)
+			b2world.dispose();
+		b2world = new World(new Vector2(0, -9.81f), true);
+		//Rocks
+		Vector2 origin = new Vector2();
+		for (Rock rock : level.rocks)
+		{
+			BodyDef bodyDef = new BodyDef();
+			bodyDef.type = BodyType.KinematicBody;
+			bodyDef.position.set(rock.position);
+			Body body = b2world.createBody(bodyDef);
+			rock.body = body;
+			PolygonShape polygonShape = new PolygonShape();
+			origin.x = rock.bounds.width / 2.0f;
+			origin.y = rock.bounds.height / 2.0f;
+			polygonShape.setAsBox(rock.bounds.width / 2.0f, rock.bounds.height / 2.0f, origin, 0);
+			FixtureDef fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+		}
+	}
+	
+	/**
+	 * Dispose function
+	 */
+	@Override
+	public void dispose()
+	{
+		if (b2world != null)
+			b2world.dispose();
 	}
 }

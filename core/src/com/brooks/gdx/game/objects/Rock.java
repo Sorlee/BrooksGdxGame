@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.brooks.gdx.game.Assets;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
  
 /**
  * Created by: Becky Brooks
@@ -20,7 +19,6 @@ public class Rock extends AbstractGameObject
  	private final float FLOAT_AMPLITUDE = 0.25f;
  	private float floatCycleTimeLeft;
  	private boolean floatingDownwards;
- 	private Vector2 floatTargetPosition;
  	
  	/**
  	 * Rock method
@@ -35,7 +33,7 @@ public class Rock extends AbstractGameObject
  	 */
  	private void init()
  	{
- 		dimension.set(0.75f, 1f);
+ 		dimension.set(0.5f, 0.5f);
  		regLeftEdge = Assets.instance.rock.leftEdge;
  		regRightEdge = Assets.instance.rock.rightEdge;
  		regMiddle = Assets.instance.rock.middle;
@@ -43,7 +41,6 @@ public class Rock extends AbstractGameObject
  		setLength(1);
  		floatingDownwards = false;
  		floatCycleTimeLeft = MathUtils.random(0, FLOAT_CYCLE_TIME / 2);
- 		floatTargetPosition = null;
  	}
  	
  	/**
@@ -73,26 +70,24 @@ public class Rock extends AbstractGameObject
  	public void render (SpriteBatch batch)
  	{
  		TextureRegion reg = null;
- 		float relX = 0;
- 		float relY = 0;
+ 		float relX = -dimension.x;
  
  		//Draw left edge
  		reg = regLeftEdge;
- 		relX -= dimension.x / 4;
- 		batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y, dimension.x / 4, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+ 		batch.draw(reg.getTexture(), position.x + relX, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+ 		relX += dimension.x;
  
  		//Draw middle
- 		relX = 0;
  		reg = regMiddle;
  		for (int i = 0; i < length; i++)
  		{
- 			batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+ 			batch.draw(reg.getTexture(), position.x + relX, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
  			relX += dimension.x;
  		}
  
  		//Draw right edge
  		reg = regRightEdge;
- 		batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y, dimension.x / 4, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+ 		batch.draw(reg.getTexture(), position.x + relX, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
  	}
  	
  	/**
@@ -103,14 +98,15 @@ public class Rock extends AbstractGameObject
  	{
  		super.update(deltaTime);
  		floatCycleTimeLeft -= deltaTime;
- 		if (floatTargetPosition == null)
- 			floatTargetPosition = new Vector2(position);
  		if (floatCycleTimeLeft <= 0)
  		{
  			floatCycleTimeLeft = FLOAT_CYCLE_TIME;
  			floatingDownwards = !floatingDownwards;
- 			floatTargetPosition.y += FLOAT_AMPLITUDE * (floatingDownwards ? -1 : 1);
+ 			body.setLinearVelocity(0, FLOAT_AMPLITUDE * (floatingDownwards ? -1 : 1));
  		}
- 		position.lerp(floatTargetPosition, deltaTime);
+ 		else
+ 		{
+ 			body.setLinearVelocity(body.getLinearVelocity().scl(0.98f));
+ 		}
  	}
 }

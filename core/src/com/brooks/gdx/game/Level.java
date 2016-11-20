@@ -13,6 +13,7 @@ import com.brooks.gdx.game.objects.Knight;
 import com.brooks.gdx.game.objects.Potion;
 import com.brooks.gdx.game.objects.Orange;
 import com.brooks.gdx.game.objects.Enemy;
+import com.brooks.gdx.game.objects.Smoke;
 
 /**
  * Created by: Becky Brooks
@@ -36,7 +37,8 @@ public class Level
  		PLAYER_SPAWNPOINT(255, 255, 255), //white
  		ITEM_POTION(0, 255, 0), //green
  		ITEM_ORANGE(255, 255, 0), //yellow
- 		ENEMY(0, 0, 255); //blue
+ 		ENEMY(0, 0, 255), //blue
+ 		SMOKE(0, 255, 255); //teal
  
  		private int color;
  		//Bit-shift RGB to use Hexidecimal
@@ -60,6 +62,7 @@ public class Level
  	public Clouds clouds;
  	public City city;
  	public GooOverlay gooOverlay;
+ 	public Smoke smoke;
  
  	/**
  	 * Level method
@@ -93,7 +96,7 @@ public class Level
  			for (int pixelX = 0; pixelX < pixmap.getWidth(); pixelX++)
  			{
  				AbstractGameObject obj = null;
- 				float offsetHeight = 0;
+ 				float offsetHeight = 30;
  				//Height grows from bottom to top
  				float baseHeight = pixmap.getHeight() - pixelY;
  				//Get color of current pixel as 32-bit RGBA value
@@ -111,9 +114,7 @@ public class Level
  					if (lastPixel != currentPixel)
  					{
  						obj = new Rock();
- 						float heightIncreaseFactor = 0.25f;
- 						offsetHeight = -2.5f;
- 						obj.position.set(pixelX, baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight);
+ 						obj.position.set(pixelX/1.5f, (-pixelY + offsetHeight)/1.5f);
  						rocks.add((Rock)obj);
  					}
  					else
@@ -125,33 +126,36 @@ public class Level
  				else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel))
  				{
  					obj = new Knight();
- 					offsetHeight = 8.0f;
- 					obj.position.set(pixelX, baseHeight * obj.dimension.y - offsetHeight);
+ 					obj.position.set(pixelX, (-pixelY + offsetHeight)/1.5f);
  					knight = (Knight) obj;
  				}
  				//Potion
  				else if (BLOCK_TYPE.ITEM_POTION.sameColor(currentPixel))
  				{
  					obj = new Potion();
- 					offsetHeight = -1.5f;
- 					obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+ 					obj.position.set(pixelX/1.5f, (-pixelY + offsetHeight)/1.5f);
  					potions.add((Potion)obj);
  				}
  				//Orange
  				else if (BLOCK_TYPE.ITEM_ORANGE.sameColor(currentPixel))
  				{
  					obj = new Orange();
- 					offsetHeight = -1.5f;
- 					obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+ 					obj.position.set(pixelX/1.5f, (-pixelY + offsetHeight)/1.5f);
  					oranges.add((Orange)obj);
  				}
  				//Enemies
  				else if (BLOCK_TYPE.ENEMY.sameColor(currentPixel))
  				{
  					obj = new Enemy();
- 					offsetHeight = -3.0f;
- 					obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
+ 					obj.position.set(pixelX/1.5f, (-pixelY + offsetHeight)/1.5f);
  					enemies.add((Enemy)obj);
+ 				}
+ 				//Smoke
+ 				else if (BLOCK_TYPE.SMOKE.sameColor(currentPixel))
+ 				{
+ 					obj = new Smoke();
+ 					obj.position.set((pixelX/1.5f)-1, (-pixelY + offsetHeight)/1.5f);
+ 					smoke = (Smoke)obj;
  				}
  				//Unknown object / pixel color
  				else
@@ -168,11 +172,11 @@ public class Level
  
  		//Decoration
  		clouds = new Clouds(pixmap.getWidth());
- 		clouds.position.set(0, 2);
+ 		clouds.position.set(0, 11);
  		city = new City(pixmap.getWidth());
- 		city.position.set(-1, 1);
+ 		city.position.set(-1, 3);
  		gooOverlay = new GooOverlay(pixmap.getWidth());
- 		gooOverlay.position.set(0, -3.75f);
+ 		gooOverlay.position.set(0, -2.0f);
  
  		//Free memory
  		pixmap.dispose();
@@ -187,6 +191,8 @@ public class Level
  	{
  		//Draw mountains
  		city.render(batch);
+ 		//Draw smoke
+ 		smoke.render(batch);
  		//Draw rocks
  		for (Rock rock : rocks)
  			rock.render(batch);

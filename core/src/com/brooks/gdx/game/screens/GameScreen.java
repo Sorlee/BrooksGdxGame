@@ -74,8 +74,7 @@ public class GameScreen extends AbstractGameScreen
 	@Override
 	public void hide ()
 	{
-		worldRenderer.dispose();
-		Gdx.input.setCatchBackKey(false);
+		
 	}
 	
 	/**
@@ -96,5 +95,16 @@ public class GameScreen extends AbstractGameScreen
 		super.resume();
 		//Only called on Android
 		paused = false;
+	}
+	
+	/**
+	 * Dispose method
+	 */
+	@Override
+	public void dispose()
+	{
+		worldController.dispose();
+		worldRenderer.dispose();
+		Gdx.input.setCatchBackKey(false);
 	}
 }

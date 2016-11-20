@@ -69,6 +69,7 @@ public class Clouds extends AbstractGameObject
  		{
  			Cloud cloud = spawnCloud();
  			cloud.position.x = i * distFac;
+ 			cloud.position.y = 6;
  			clouds.add(cloud);
  		}
  	}
@@ -97,7 +98,7 @@ public class Clouds extends AbstractGameObject
  		//Base speed
  		speed.x += 0.5f;
  		//Random additional speed
- 		speed.x += MathUtils.random(0.0f, 0.75f);
+ 		speed.x += MathUtils.random(0.0f, 0.5f);
  		cloud.terminalVelocity.set(speed);
  		//Move left
  		speed.x *= -1;
