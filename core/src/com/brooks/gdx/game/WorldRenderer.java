@@ -1,6 +1,7 @@
 package com.brooks.gdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
@@ -11,6 +12,8 @@ import com.brooks.gdx.game.util.GamePreferences;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /**
@@ -26,6 +29,7 @@ public class WorldRenderer implements Disposable
 	private static final boolean DEBUG_DRAW_BOX2D_WORLD = false;
 	private Box2DDebugRenderer b2debugRenderer;
 	private ShaderProgram shaderMonochrome;
+	private ShapeRenderer shape;
 
 	/**
 	 * Initialize the WorldController
@@ -57,6 +61,7 @@ public class WorldRenderer implements Disposable
 			String msg = "Could not compile shader program: " + shaderMonochrome.getLog();
 			throw new GdxRuntimeException(msg);
 		}
+		shape = new ShapeRenderer();
 	}
 
 	/**
@@ -64,6 +69,10 @@ public class WorldRenderer implements Disposable
 	 */
 	public void render ()
 	{
+		shape.setColor(Color.BLACK);
+	    shape.begin(ShapeType.Filled);
+	    shape.rect(0, 0, 800, 500, Color.BLACK, Color.BLACK, Color.NAVY, Color.NAVY);
+	    shape.end();
 		renderWorld(batch);
 		renderGui(batch);
 	}
@@ -151,7 +160,7 @@ public class WorldRenderer implements Disposable
 			{
 				batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 			}
-			batch.draw(Assets.instance.knight.knight, x + i * 50, y, 50, 50, 22, 49, 1f, -1f, 0);
+			batch.draw(Assets.instance.knight.knight, x + i * 50, y, 50, 50, 50, 75, 1f, -1f, 0);
 			batch.setColor(1, 1, 1, 1);
 		}
 		if (worldController.lives >= 0 && worldController.livesVisual > worldController.lives)

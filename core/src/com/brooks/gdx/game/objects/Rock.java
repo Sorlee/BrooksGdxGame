@@ -3,7 +3,6 @@ package com.brooks.gdx.game.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.brooks.gdx.game.Assets;
-import com.badlogic.gdx.math.MathUtils;
  
 /**
  * Created by: Becky Brooks
@@ -15,10 +14,6 @@ public class Rock extends AbstractGameObject
  	private TextureRegion regRightEdge;
  	private TextureRegion regMiddle;
  	private int length;
- 	private final float FLOAT_CYCLE_TIME = 2.0f;
- 	private final float FLOAT_AMPLITUDE = 0.25f;
- 	private float floatCycleTimeLeft;
- 	private boolean floatingDownwards;
  	
  	/**
  	 * Rock method
@@ -33,14 +28,12 @@ public class Rock extends AbstractGameObject
  	 */
  	private void init()
  	{
- 		dimension.set(0.5f, 0.5f);
+ 		dimension.set(0.75f, 0.75f);
  		regLeftEdge = Assets.instance.rock.leftEdge;
  		regRightEdge = Assets.instance.rock.rightEdge;
  		regMiddle = Assets.instance.rock.middle;
  		//Start length of this rock
  		setLength(1);
- 		floatingDownwards = false;
- 		floatCycleTimeLeft = MathUtils.random(0, FLOAT_CYCLE_TIME / 2);
  	}
  	
  	/**
@@ -97,16 +90,5 @@ public class Rock extends AbstractGameObject
  	public void update(float deltaTime)
  	{
  		super.update(deltaTime);
- 		floatCycleTimeLeft -= deltaTime;
- 		if (floatCycleTimeLeft <= 0)
- 		{
- 			floatCycleTimeLeft = FLOAT_CYCLE_TIME;
- 			floatingDownwards = !floatingDownwards;
- 			body.setLinearVelocity(0, FLOAT_AMPLITUDE * (floatingDownwards ? -1 : 1));
- 		}
- 		else
- 		{
- 			body.setLinearVelocity(body.getLinearVelocity().scl(0.98f));
- 		}
  	}
 }

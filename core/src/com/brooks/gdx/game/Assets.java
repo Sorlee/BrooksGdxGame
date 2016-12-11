@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by: Becky Brooks
@@ -28,6 +30,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetOrange orange;
 	public AssetPotion potion;
 	public AssetEnemy enemy;
+	public AssetSmoke smoke;
 	public AssetLevelDecoration levelDecoration;
 	public AssetFonts fonts;
 	public AssetSounds sounds;
@@ -106,6 +109,7 @@ public class Assets implements Disposable, AssetErrorListener
 		orange = new AssetOrange(atlas);
 		potion = new AssetPotion(atlas);
 		enemy = new AssetEnemy(atlas);
+		smoke = new AssetSmoke(atlas);
 		levelDecoration = new AssetLevelDecoration(atlas);
 		sounds = new AssetSounds(assetManager);
 		music = new AssetMusic(assetManager);
@@ -150,10 +154,29 @@ public class Assets implements Disposable, AssetErrorListener
 	public class AssetKnight
 	{
 		public final AtlasRegion knight;
+		public final Animation idle;
+		public final Animation walk;
+		public final Animation jump;
+		public final Animation jumpEnd;
 		
 		public AssetKnight (TextureAtlas atlas)
 		{
 			knight = atlas.findRegion("Knight");
+			Array<AtlasRegion> regions = null;
+			//Animation: Knight idle
+			regions = atlas.findRegions("Knight");
+			idle = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+			//Animation: Knight walk
+			regions = atlas.findRegions("KnightWalk");
+			walk = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+			//Animation: Knight jump
+			regions = atlas.findRegions("KnightJump");
+			jump = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.NORMAL);
+			//Animation: Knight jump end
+			regions = new Array<AtlasRegion>();
+			regions.add(atlas.findRegion("KnightJump", 7));
+			regions.add(atlas.findRegion("KnightJump", 6));
+			jumpEnd = new Animation(1.0f / 5.0f, regions);
 		}
 	}
 	
@@ -206,10 +229,32 @@ public class Assets implements Disposable, AssetErrorListener
 	public class AssetEnemy
 	{
 		public final AtlasRegion enemy;
+		public final Animation idle;
 		
 		public AssetEnemy (TextureAtlas atlas)
 		{
-			enemy = atlas.findRegion("Enemy1-1");
+				enemy = atlas.findRegion("Enemy1");
+				Array<AtlasRegion> regions = null;
+				//Animation: Enemies idle
+				regions = atlas.findRegions("Enemy1");
+				idle = new Animation(1.0f / 7.0f, regions, Animation.PlayMode.LOOP);
+		}
+	}
+	
+	/**
+	 * Class for the end portal
+	 */
+	public class AssetSmoke
+	{
+		public final AtlasRegion smoke;
+		public final Animation smokeSwirl;
+		
+		public AssetSmoke (TextureAtlas atlas)
+		{
+			smoke = atlas.findRegion("smoke_1");
+			Array<AtlasRegion> regions = null;
+			regions = atlas.findRegions("smoke");
+			smokeSwirl = new Animation(1.0f / 8.0f, regions, Animation.PlayMode.LOOP);
 		}
 	}
 	
@@ -223,7 +268,6 @@ public class Assets implements Disposable, AssetErrorListener
 		public final AtlasRegion cloud03;
 		public final AtlasRegion city;
 		public final AtlasRegion gooOverlay;
-		public final AtlasRegion smoke;
 		
 		public AssetLevelDecoration (TextureAtlas atlas)
 		{
@@ -232,7 +276,6 @@ public class Assets implements Disposable, AssetErrorListener
 			cloud03 = atlas.findRegion("cloud03");
 			city = atlas.findRegion("City");
 			gooOverlay = atlas.findRegion("GooOverlay");
-			smoke = atlas.findRegion("smoke1");
 		}
 	}
 	

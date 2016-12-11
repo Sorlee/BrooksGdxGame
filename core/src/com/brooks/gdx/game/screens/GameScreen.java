@@ -2,7 +2,9 @@ package com.brooks.gdx.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.brooks.gdx.game.WorldController;
 import com.brooks.gdx.game.WorldRenderer;
 import com.brooks.gdx.game.util.GamePreferences;
@@ -30,6 +32,7 @@ public class GameScreen extends AbstractGameScreen
 	/**
 	 * Render method
 	 */
+	@SuppressWarnings("null")
 	@Override
 	public void render (float deltaTime)
 	{
@@ -39,8 +42,8 @@ public class GameScreen extends AbstractGameScreen
 			//Update game world by the time that has passed since the last rendered frame
 			worldController.update(deltaTime);
 		}
-		//Set the clear screen color to: Cornflower Blue
-		Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f, 0xed / 255.0f, 0xff / 255.0f);
+		//Set the clear screen color to: Dark Blue
+		Gdx.gl.glClearColor(18 / 255.0f, 68 / 255.0f, 150 / 255.0f, 0xff / 255.0f);
 		//Clears the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		//Render game world to screen

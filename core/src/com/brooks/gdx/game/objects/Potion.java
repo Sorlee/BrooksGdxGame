@@ -26,7 +26,7 @@ public class Potion extends AbstractGameObject
  	 */
  	private void init()
  	{
- 		dimension.set(0.5f, 0.5f);
+ 		dimension.set(0.75f, 0.75f);
  		regPotion = Assets.instance.potion.potion;
  		//Set bounding box for collision detection
  		bounds.set(0, 0, dimension.x, dimension.y);

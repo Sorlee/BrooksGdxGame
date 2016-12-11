@@ -86,6 +86,7 @@ public class Level
  		oranges = new Array<Orange>();
  		potions = new Array<Potion>();
  		enemies = new Array<Enemy>();
+ 		smoke = null;
  
  		//Load image file that represents the level data
  		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -97,8 +98,6 @@ public class Level
  			{
  				AbstractGameObject obj = null;
  				float offsetHeight = 30;
- 				//Height grows from bottom to top
- 				float baseHeight = pixmap.getHeight() - pixelY;
  				//Get color of current pixel as 32-bit RGBA value
  				int currentPixel = pixmap.getPixel(pixelX, pixelY);
  				//Find matching color value to identify block type at (x,y) point and create the corresponding game object if there is a match
@@ -114,7 +113,7 @@ public class Level
  					if (lastPixel != currentPixel)
  					{
  						obj = new Rock();
- 						obj.position.set(pixelX/1.5f, (-pixelY + offsetHeight)/1.5f);
+ 						obj.position.set(pixelX/1.1f, (-pixelY + offsetHeight)/1.5f);
  						rocks.add((Rock)obj);
  					}
  					else
@@ -126,35 +125,35 @@ public class Level
  				else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel))
  				{
  					obj = new Knight();
- 					obj.position.set(pixelX, (-pixelY + offsetHeight)/1.5f);
+ 					obj.position.set(pixelX, (-pixelY + offsetHeight + 1)/1.5f);
  					knight = (Knight) obj;
  				}
  				//Potion
  				else if (BLOCK_TYPE.ITEM_POTION.sameColor(currentPixel))
  				{
  					obj = new Potion();
- 					obj.position.set(pixelX/1.5f, (-pixelY + offsetHeight)/1.5f);
+ 					obj.position.set(pixelX/1.1f, (-pixelY + offsetHeight + 1)/1.5f);
  					potions.add((Potion)obj);
  				}
  				//Orange
  				else if (BLOCK_TYPE.ITEM_ORANGE.sameColor(currentPixel))
  				{
  					obj = new Orange();
- 					obj.position.set(pixelX/1.5f, (-pixelY + offsetHeight)/1.5f);
+ 					obj.position.set(pixelX/1.1f, (-pixelY + offsetHeight + 1)/1.5f);
  					oranges.add((Orange)obj);
  				}
  				//Enemies
  				else if (BLOCK_TYPE.ENEMY.sameColor(currentPixel))
  				{
  					obj = new Enemy();
- 					obj.position.set(pixelX/1.5f, (-pixelY + offsetHeight)/1.5f);
+ 					obj.position.set(pixelX/1.1f, (-pixelY + offsetHeight)/1.5f);
  					enemies.add((Enemy)obj);
  				}
  				//Smoke
  				else if (BLOCK_TYPE.SMOKE.sameColor(currentPixel))
  				{
  					obj = new Smoke();
- 					obj.position.set((pixelX/1.5f)-1, (-pixelY + offsetHeight)/1.5f);
+ 					obj.position.set((pixelX/1.1f)-1, (-pixelY + offsetHeight)/1.5f);
  					smoke = (Smoke)obj;
  				}
  				//Unknown object / pixel color
@@ -229,5 +228,6 @@ public class Level
  		for (Enemy enemy : enemies)
  			enemy.update(deltaTime);
  		clouds.update(deltaTime);
+ 		smoke.update(deltaTime);
  	}
  }

@@ -1,7 +1,5 @@
 package com.brooks.gdx.game;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -18,7 +16,6 @@ import com.brooks.gdx.game.objects.Enemy;
 import com.badlogic.gdx.Game;
 import com.brooks.gdx.game.screens.MenuScreen;
 import com.brooks.gdx.game.util.AudioManager;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
