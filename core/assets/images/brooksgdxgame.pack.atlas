@@ -1,0 +1,438 @@
+
+brooksgdxgame.pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+City
+  rotate: false
+  xy: 2, 608
+  size: 1008, 379
+  orig: 1008, 379
+  offset: 0, 0
+  index: -1
+Enemy1
+  rotate: false
+  xy: 776, 307
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+Enemy1
+  rotate: false
+  xy: 776, 255
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+Enemy1
+  rotate: false
+  xy: 776, 203
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 3
+Enemy1
+  rotate: false
+  xy: 776, 151
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 4
+Enemy1
+  rotate: false
+  xy: 776, 99
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 5
+Enemy2
+  rotate: false
+  xy: 828, 315
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 1
+Enemy2
+  rotate: false
+  xy: 828, 263
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 2
+Enemy2
+  rotate: false
+  xy: 880, 315
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 3
+Enemy2
+  rotate: false
+  xy: 828, 211
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 4
+Enemy2
+  rotate: false
+  xy: 880, 263
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: 5
+GooOverlay
+  rotate: false
+  xy: 776, 359
+  size: 32, 160
+  orig: 32, 160
+  offset: 0, 0
+  index: -1
+Knight
+  rotate: false
+  xy: 960, 531
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: -1
+KnightWalk
+  rotate: false
+  xy: 960, 531
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 1
+KnightJump
+  rotate: false
+  xy: 382, 15
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 1
+KnightJump
+  rotate: false
+  xy: 810, 444
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 2
+KnightJump
+  rotate: false
+  xy: 434, 15
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 3
+KnightJump
+  rotate: false
+  xy: 810, 367
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 4
+KnightJump
+  rotate: false
+  xy: 862, 444
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 5
+KnightJump
+  rotate: false
+  xy: 486, 15
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 6
+KnightJump
+  rotate: false
+  xy: 862, 367
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 7
+KnightWalk
+  rotate: false
+  xy: 538, 15
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 2
+KnightWalk
+  rotate: false
+  xy: 590, 15
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 3
+KnightWalk
+  rotate: false
+  xy: 642, 15
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 4
+KnightWalk
+  rotate: false
+  xy: 694, 15
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 5
+KnightWalk
+  rotate: false
+  xy: 914, 444
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 6
+KnightWalk
+  rotate: false
+  xy: 914, 367
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 7
+KnightWalk
+  rotate: false
+  xy: 966, 454
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 8
+KnightWalk
+  rotate: false
+  xy: 966, 377
+  size: 50, 75
+  orig: 50, 75
+  offset: 0, 0
+  index: 9
+LeftEdge
+  rotate: false
+  xy: 828, 159
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Middle
+  rotate: false
+  xy: 880, 211
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Orange
+  rotate: false
+  xy: 828, 107
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Potion
+  rotate: false
+  xy: 880, 159
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+RightEdge
+  rotate: false
+  xy: 880, 107
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+cloud01
+  rotate: false
+  xy: 202, 12
+  size: 178, 78
+  orig: 178, 78
+  offset: 0, 0
+  index: -1
+cloud02
+  rotate: false
+  xy: 2, 2
+  size: 198, 88
+  orig: 198, 88
+  offset: 0, 0
+  index: -1
+cloud03
+  rotate: false
+  xy: 776, 521
+  size: 182, 85
+  orig: 182, 85
+  offset: 0, 0
+  index: -1
+smoke
+  rotate: false
+  xy: 2, 350
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 1
+smoke
+  rotate: false
+  xy: 2, 92
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 2
+smoke
+  rotate: false
+  xy: 260, 350
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 3
+smoke
+  rotate: false
+  xy: 260, 92
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 4
+smoke
+  rotate: false
+  xy: 518, 350
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 5
+smoke
+  rotate: false
+  xy: 518, 92
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 6
+
+brooksgdxgame.pack2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+smoke
+  rotate: false
+  xy: 2, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 7
+smoke
+  rotate: false
+  xy: 2, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 8
+smoke
+  rotate: false
+  xy: 260, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 9
+smoke
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 10
+smoke
+  rotate: false
+  xy: 260, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 11
+smoke
+  rotate: false
+  xy: 518, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 12
+smoke
+  rotate: false
+  xy: 260, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 13
+smoke
+  rotate: false
+  xy: 518, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 14
+smoke
+  rotate: false
+  xy: 518, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 15
+
+brooksgdxgame.pack3.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+smoke
+  rotate: false
+  xy: 2, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 16
+smoke
+  rotate: false
+  xy: 2, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 17
+smoke
+  rotate: false
+  xy: 260, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 18
+smoke
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 19
+smoke
+  rotate: false
+  xy: 260, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 20
+smoke
+  rotate: false
+  xy: 518, 518
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 21
+smoke
+  rotate: false
+  xy: 260, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 22
+smoke
+  rotate: false
+  xy: 518, 260
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 23
