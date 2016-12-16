@@ -17,6 +17,7 @@ public class Constants
 	public static final String TEXTURE_ATLAS_OBJECTS = "../core/assets/images/brooksgdxgame.pack.atlas";
 	//Location of image file for level 01
 	public static final String LEVEL_01 = "levels/level-01.png";
+	public static final String LEVEL_02 = "levels/level-02.png";
 	//Amount of extra lives at level start
 	public static final int LIVES_START = 3;
 	//Duration of feather power-up in seconds
@@ -46,4 +47,5 @@ public class Constants
 	public static final float ACCEL_ANGLE_DEAD_ZONE = 5.0f;
 	//Max angle of rotation needed to gain max movement velocity
 	public static final float ACCEL_MAX_ANGLE_MAX_MOVEMENT = 20.0f;
+	public static final float ENEMY_DAMAGE = 0.2f;
 }

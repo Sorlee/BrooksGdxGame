@@ -27,7 +27,12 @@ public class Enemy extends AbstractGameObject
  	private void init ()
  	{
  		dimension.set(1.0f, 1.0f);
- 		setAnimation(Assets.instance.enemy.idle);
+ 		int random;
+ 		random = (int)(Math.random()*2);
+ 		if (random == 0)
+ 			setAnimation(Assets.instance.enemy1.idle);
+ 		if (random == 1)
+ 			setAnimation(Assets.instance.enemy2.idle);
  		stateTime = MathUtils.random(0.0f, 1.0f);
  		//Set bounding box for collision detection
  		bounds.set(0, 0, dimension.x, dimension.y);

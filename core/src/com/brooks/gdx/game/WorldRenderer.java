@@ -71,7 +71,7 @@ public class WorldRenderer implements Disposable
 	{
 		shape.setColor(Color.BLACK);
 	    shape.begin(ShapeType.Filled);
-	    shape.rect(0, 0, 800, 500, Color.BLACK, Color.BLACK, Color.NAVY, Color.NAVY);
+	    shape.rect(0, 0, 800, 500, Color.BLACK, Color.BLACK, Color.FOREST, Color.FOREST);
 	    shape.end();
 		renderWorld(batch);
 		renderGui(batch);

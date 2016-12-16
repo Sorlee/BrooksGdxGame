@@ -29,7 +29,8 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetRock rock;
 	public AssetOrange orange;
 	public AssetPotion potion;
-	public AssetEnemy enemy;
+	public AssetEnemy1 enemy1;
+	public AssetEnemy2 enemy2;
 	public AssetSmoke smoke;
 	public AssetLevelDecoration levelDecoration;
 	public AssetFonts fonts;
@@ -108,7 +109,8 @@ public class Assets implements Disposable, AssetErrorListener
 		rock = new AssetRock(atlas);
 		orange = new AssetOrange(atlas);
 		potion = new AssetPotion(atlas);
-		enemy = new AssetEnemy(atlas);
+		enemy1 = new AssetEnemy1(atlas);
+		enemy2 = new AssetEnemy2(atlas);
 		smoke = new AssetSmoke(atlas);
 		levelDecoration = new AssetLevelDecoration(atlas);
 		sounds = new AssetSounds(assetManager);
@@ -224,19 +226,37 @@ public class Assets implements Disposable, AssetErrorListener
 	}
 	
 	/**
-	 * Class for the enemy
+	 * Class for the first enemy
 	 */
-	public class AssetEnemy
+	public class AssetEnemy1
 	{
-		public final AtlasRegion enemy;
+		public final AtlasRegion enemy1;
 		public final Animation idle;
 		
-		public AssetEnemy (TextureAtlas atlas)
+		public AssetEnemy1 (TextureAtlas atlas)
 		{
-				enemy = atlas.findRegion("Enemy1");
+				enemy1 = atlas.findRegion("Enemy1");
 				Array<AtlasRegion> regions = null;
 				//Animation: Enemies idle
 				regions = atlas.findRegions("Enemy1");
+				idle = new Animation(1.0f / 7.0f, regions, Animation.PlayMode.LOOP);
+		}
+	}
+	
+	/**
+	 * Class for the second enemy
+	 */
+	public class AssetEnemy2
+	{
+		public final AtlasRegion enemy2;
+		public final Animation idle;
+		
+		public AssetEnemy2 (TextureAtlas atlas)
+		{
+				enemy2 = atlas.findRegion("Enemy2");
+				Array<AtlasRegion> regions = null;
+				//Animation: Enemies idle
+				regions = atlas.findRegions("Enemy2");
 				idle = new Animation(1.0f / 7.0f, regions, Animation.PlayMode.LOOP);
 		}
 	}

@@ -24,6 +24,7 @@ public class Knight extends AbstractGameObject
 	private final float JUMP_TIME_MIN = 0.1f;
 	private final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
 	public ParticleEffect dustParticles = new ParticleEffect();
+	public ParticleEffect enemyDust = new ParticleEffect();
 	private Animation idle;
 	private Animation walk;
 	private Animation jump;
@@ -47,8 +48,11 @@ public class Knight extends AbstractGameObject
  	public float timeJumping;
  	public JUMP_STATE jumpState;
  	public boolean hasPotionPowerup;
+ 	public boolean damage;
  	public float timeLeftPotionPowerup;
+ 	public float timeLeftDamage;
  	public boolean check = false;
+ 	public int enemyNum;
  	
  	/**
  	 * Knight method
@@ -86,9 +90,14 @@ public class Knight extends AbstractGameObject
  		timeJumping = 0;
  		//Powerups
  		hasPotionPowerup = false;
+ 		damage = false;
  		timeLeftPotionPowerup = 0;
+ 		timeLeftDamage = 0;
  		//Particles
  		dustParticles.load(Gdx.files.internal("particles/dust"), Gdx.files.internal("particles"));
+ 		enemyDust.load(Gdx.files.internal("particles/enemyDust"), Gdx.files.internal("particles"));
+		enemyDust.scaleEffect(0.01f);
+		enemyNum = 0;
  	}
  	
  	/**
@@ -173,7 +182,18 @@ public class Knight extends AbstractGameObject
  				setPotionPowerup(false);
  			}
  		}
+ 		if (timeLeftDamage > 0)
+ 		{
+ 			timeLeftDamage -= deltaTime;
+ 			if (timeLeftDamage < 0)
+ 			{
+ 				//Disable power-up
+ 				timeLeftDamage = 0;
+ 				setDamage(false);
+ 			}
+ 		}
  		dustParticles.update(deltaTime);
+ 		enemyDust.update(deltaTime);
  		
  		
  		if (animation == idle)
@@ -306,6 +326,14 @@ public class Knight extends AbstractGameObject
  			dustParticles.allowCompletion();
  			super.updateMotionY(deltaTime);
  		}
+ 		if (checkOne)
+		{
+ 			enemyDust.setPosition(position.x, position.y);
+			enemyDust.start();
+			enemyDust.allowCompletion();
+			enemyDust.reset();
+			checkOne = false;
+		}
  	}
  	
  	/**
@@ -318,6 +346,7 @@ public class Knight extends AbstractGameObject
  		
  		//Draw Particles
  		dustParticles.draw(batch);
+ 		enemyDust.draw(batch);
  		
  		//Apply Skin Color
  		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
@@ -327,6 +356,19 @@ public class Knight extends AbstractGameObject
  		{
  			batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
  		}
+ 		if (damage)
+ 		{
+ 			batch.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+ 			if (enemyNum == 1)
+ 			{
+ 				acceleration.x = -1000f;
+ 			} else
+ 			{
+ 				acceleration.x = -1000f;
+ 				acceleration.y = 1000f;
+ 			}
+ 		} else
+ 			acceleration.set(0.0f, -25.0f);
  		
  		//Draw image
  		reg = animation.getKeyFrame(stateTime, true);
@@ -334,4 +376,27 @@ public class Knight extends AbstractGameObject
  		//Reset color to white
  		batch.setColor(1, 1, 1, 1);
  	}
+ 	
+ 	public void setCheck(boolean times)
+ 	{
+ 		checkOne = times;
+ 	}
+
+	public void setDamage(boolean dam)
+	{
+		damage = dam;
+		if (dam)
+ 		{
+ 			timeLeftDamage = Constants.ENEMY_DAMAGE;
+ 		}
+	}
+	
+	public boolean hasDamage()
+ 	{
+ 		return damage && timeLeftDamage > 0;
+ 	}
+
+	public void setEnemy(int num) {
+		enemyNum = num;
+	}
  }

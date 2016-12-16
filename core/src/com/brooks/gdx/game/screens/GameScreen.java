@@ -42,8 +42,8 @@ public class GameScreen extends AbstractGameScreen
 			//Update game world by the time that has passed since the last rendered frame
 			worldController.update(deltaTime);
 		}
-		//Set the clear screen color to: Dark Blue
-		Gdx.gl.glClearColor(18 / 255.0f, 68 / 255.0f, 150 / 255.0f, 0xff / 255.0f);
+		//Set the clear screen color to: Dark Green
+		Gdx.gl.glClearColor(17 / 255.0f, 138 / 255.0f, 27 / 255.0f, 0xff / 255.0f);
 		//Clears the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		//Render game world to screen

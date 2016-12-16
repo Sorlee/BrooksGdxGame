@@ -26,6 +26,7 @@ public abstract class AbstractGameObject
 	public Body body;
 	public float stateTime;
 	public Animation animation;
+	public boolean checkOne = false;
 	
 	/**
 	 * AbstractGameObject method
@@ -42,6 +43,7 @@ public abstract class AbstractGameObject
 		friction = new Vector2();
 		acceleration = new Vector2();
 		bounds = new Rectangle();
+		checkOne = false;
 	}
 	
 	/**

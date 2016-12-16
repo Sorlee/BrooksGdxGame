@@ -1,5 +1,14 @@
 package com.brooks.gdx.game;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -13,6 +22,7 @@ import com.brooks.gdx.game.objects.Knight.JUMP_STATE;
 import com.brooks.gdx.game.objects.Potion;
 import com.brooks.gdx.game.objects.Orange;
 import com.brooks.gdx.game.objects.Enemy;
+
 import com.badlogic.gdx.Game;
 import com.brooks.gdx.game.screens.MenuScreen;
 import com.brooks.gdx.game.util.AudioManager;
@@ -37,6 +47,7 @@ public class WorldController extends InputAdapter implements Disposable
 	public Level level;
 	public int lives;
 	public int score;
+	public int deadScore;
 	private Rectangle r1 = new Rectangle();
 	private Rectangle r2 = new Rectangle();
 	private float timeLeftGameOverDelay;
@@ -46,6 +57,7 @@ public class WorldController extends InputAdapter implements Disposable
 	private boolean smokeReached;
 	public World b2world;
 	private boolean accelerometerAvailable;
+	public int count = 0;
 	
 	/**
 	 * Knight <-> Rock collisions
@@ -121,6 +133,12 @@ public class WorldController extends InputAdapter implements Disposable
 		if (score < 0)
 			score = 0;
 		Gdx.app.log(TAG, "Enemy hit!");
+		if (enemy.animation.equals(Assets.instance.enemy1.idle))
+			level.knight.setEnemy(1);
+		else if (enemy.animation.equals(Assets.instance.enemy2.idle))
+			level.knight.setEnemy(2);
+		level.knight.setDamage(true);
+		level.knight.setCheck(true);
 	}
 	
 	/**
@@ -143,6 +161,32 @@ public class WorldController extends InputAdapter implements Disposable
 		scoreVisual = score;
 		smokeReached = false;
 		level = new Level(Constants.LEVEL_01);
+		cameraHelper.setTarget(level.knight);
+		initPhysics();
+	}
+	
+	/**
+	 * Initialize the second level
+	 */
+	private void initLevel2()
+	{
+		deadScore = score;
+		scoreVisual = score;
+		smokeReached = false;
+		level = new Level(Constants.LEVEL_02);
+		cameraHelper.setTarget(level.knight);
+		initPhysics();
+	}
+	
+	/**
+	 * Initialize the second level
+	 */
+	private void initLevel2Dead()
+	{
+		score = deadScore;
+		scoreVisual = score;
+		smokeReached = false;
+		level = new Level(Constants.LEVEL_02);
 		cameraHelper.setTarget(level.knight);
 		initPhysics();
 	}
@@ -177,11 +221,27 @@ public class WorldController extends InputAdapter implements Disposable
 	public void update (float deltaTime)
 	{
 		handleDebugInput(deltaTime);
-		if (isGameOver() || smokeReached)
+		if (isGameOver())
 		{
 			timeLeftGameOverDelay -= deltaTime;
 			if (timeLeftGameOverDelay < 0)
+			{
+				recordScore(score);
 				backToMenu();
+			}
+		}
+		else if (smokeReached)
+		{
+			if (count == 0)
+			{
+				initLevel2();
+			}
+			else
+			{
+				recordScore(score);
+				backToMenu();
+			}
+			count++;
 		}
 		else
 		{
@@ -198,7 +258,10 @@ public class WorldController extends InputAdapter implements Disposable
 			if (isGameOver())
 				timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
 			else
-				initLevel();
+				if (count == 0)
+					initLevel();
+				else
+					initLevel2Dead();
 		}
 		level.city.updateScrollPosition(cameraHelper.getPosition());
 		if (livesVisual > lives)
@@ -454,5 +517,66 @@ public class WorldController extends InputAdapter implements Disposable
 	{
 		if (b2world != null)
 			b2world.dispose();
+	}
+	
+	public void recordScore(int total)
+	{
+		int count = 0;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Initials for Highscore list: ");
+		String initials = sc.next();
+		String[] hs = new String[100];
+		for (int i = 0; i < 100; i++)
+			hs[i] = null;
+		BufferedReader reader = null;
+		int check = 0;
+		File file = new File("../core/assets/scores/scores");
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			String line;
+			while ((line = reader.readLine()) != null)
+			{
+				String[] line2;
+				line2 = line.split("\t");
+				if (total > Integer.parseInt(line2[0]) && check == 0)
+				{
+					hs[count] = total + "\t\t" + initials;
+					count++;
+					hs[count] = line;
+					count++;
+					check++;
+				}
+				else
+				{
+					hs[count] = line;
+					count++;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		}
+		file.delete();
+		File fnew = new File("../core/assets/scores/scores");
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(fnew, false);
+			for (int i = 0; i < count; i++)
+			{
+				writer.write(hs[i] + "\n");
+			}
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("The top three scores are:");
+		for (int i = 0; i < 3; i++)
+			System.out.println(hs[i]);
 	}
 }

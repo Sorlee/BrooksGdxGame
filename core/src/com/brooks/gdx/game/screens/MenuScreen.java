@@ -184,16 +184,19 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		Table layer = new Table();
 		//+ Coins
-		imgCoins = new Image(skinCanyonBunny, "coins");
-		layer.addActor(imgCoins);
-		imgCoins.setOrigin(imgCoins.getWidth() / 2, imgCoins.getHeight() / 2);
-		imgCoins.addAction(sequence(moveTo(135, -20), scaleTo(0, 0), fadeOut(0), delay(2.5f), parallel(moveBy(0, 100, 0.5f, Interpolation.swingOut),
-				scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear), alpha(1.0f, 0.5f))));
+		//imgCoins = new Image(skinCanyonBunny, "smoke_1");
+		//layer.addActor(imgCoins);
+		//imgCoins.setPosition(50, 100);
+		//imgCoins.setOrigin(imgCoins.getWidth() / 2, imgCoins.getHeight() / 2);
+		//imgCoins.addAction(sequence(moveTo(135, -20), scaleTo(0, 0), fadeOut(0), delay(2.5f), parallel(moveBy(0, 100, 0.5f, Interpolation.swingOut),
+				//scaleTo(1.0f, 1.0f, 0.25f, Interpolation.linear), alpha(1.0f, 0.5f))));
 		//+ Bunny
 		imgBunny = new Image(skinCanyonBunny, "bunny");
 		layer.addActor(imgBunny);
-		imgBunny.addAction(sequence(moveTo(655, 510), delay(4.0f), moveBy(-70, -100, 0.5f, Interpolation.fade), moveBy(-100, -50, 0.5f, Interpolation.fade),
-				moveBy(-150, -300, 1.0f, Interpolation.elasticIn)));
+		imgBunny.setScale(0.75f, 0.75f);
+		imgBunny.setPosition(200, -100);
+		//imgBunny.addAction(sequence(moveTo(655, 510), delay(4.0f), moveBy(-70, -100, 0.5f, Interpolation.fade), moveBy(-100, -50, 0.5f, Interpolation.fade),
+				//moveBy(-150, -300, 1.0f, Interpolation.elasticIn)));
 		return layer;
 	}
 	
@@ -209,9 +212,6 @@ public class MenuScreen extends AbstractGameScreen
 		imgLogo = new Image(skinCanyonBunny, "logo");
 		layer.add(imgLogo);
 		layer.row().expandY();
-		// + Info Logos
-		imgInfo = new Image(skinCanyonBunny, "info");
-		layer.add(imgInfo).bottom();
 		if (debugEnabled)
 			layer.debug();
 		return layer;
